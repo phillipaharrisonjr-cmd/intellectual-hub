@@ -16,10 +16,14 @@ const crypto = require('crypto');
 
 const VERSION = require('../package.json').version;
 const fs = require('fs');
-const ASSUMPTIONS_FILE = process.env.ASSUMPTIONS_FILE || path.join(__dirname, '..', 'config', 'revenue-assumptions.json');
+// Resolved at write time, not module load, so a test harness that sets
+// ASSUMPTIONS_FILE after requiring the app still redirects writes (BUG-026).
+function assumptionsFile() {
+  return process.env.ASSUMPTIONS_FILE || path.join(__dirname, '..', 'config', 'revenue-assumptions.json');
+}
 function persistAssumptions(doc) {
   try {
-    fs.writeFileSync(ASSUMPTIONS_FILE, JSON.stringify(doc, null, 2) + '\n');
+    fs.writeFileSync(assumptionsFile(), JSON.stringify(doc, null, 2) + '\n');
   } catch (err) {
     console.error('could not persist assumptions:', err.message);
   }

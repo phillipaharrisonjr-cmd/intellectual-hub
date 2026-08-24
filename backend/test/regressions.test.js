@@ -299,4 +299,24 @@ describe('regressions', () => {
     const r = await request(app).post('/api/chat').set(analyst).send({ messages: [{ role: 'user', content: 'x'.repeat(13000) }] }).expect(400);
     expect(r.body.error).toMatch(/too long/);
   });
+
+  it('BUG-026 an assumptions PUT under a foreign runner env never rewrites the real config file', async () => {
+    const fs = require('fs');
+    const path = require('path');
+    const realFile = path.join(__dirname, '..', 'config', 'revenue-assumptions.json');
+    const before = fs.readFileSync(realFile, 'utf8');
+    const savedPersist = process.env.PERSIST_ASSUMPTIONS;
+    delete process.env.PERSIST_ASSUMPTIONS; // simulate a runner that never loaded backend/vitest.config.js
+    try {
+      const a = (await request(app).get('/api/admin/assumptions').set(admin)).body;
+      a.models.merchant_cp.netMargin = 0.0068;
+      a.version = 'test';
+      await request(app).put('/api/admin/assumptions').set(admin).send(a).expect(200);
+      expect(fs.readFileSync(realFile, 'utf8')).toBe(before);
+      await request(app).put('/api/admin/assumptions').set(admin).send(JSON.parse(before)).expect(200); // restore the cache for later tests
+    } finally {
+      if (savedPersist !== undefined) process.env.PERSIST_ASSUMPTIONS = savedPersist;
+      fs.writeFileSync(realFile, before); // heal the repo even if the bug regresses
+    }
+  });
 });

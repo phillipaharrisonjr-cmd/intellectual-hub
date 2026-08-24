@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
+    "seed:demo": "node scripts/seed-demo.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:replay": "vitest run test/projection.replay.test.js",

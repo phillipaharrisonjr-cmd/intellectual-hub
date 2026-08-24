@@ -1,0 +1,38 @@
+/* Denali frontend tokens — the ONLY place hex lives in src/ (AGENTS.md: no raw hex in components).
+   Palette follows AGENTS.md and the design canvas (navy / amber, Playfair Display + Inter).
+   NOTE: design/design-system/tokens currently carries an older navy/signal-red palette that does
+   not match AGENTS.md or the six canvas screens; reconcile there, then point these at it. */
+:root {
+  --navy-900: #0a1838;
+  --navy-700: #0f204b;
+  --navy-500: #22386b;
+
+  --amber-500: #e0a012;
+  --amber-300: #f0b82e;
+  --amber-100: #f2d58a;
+  --amber-50: #fbe6c8;
+  --amber-text: #c28800;
+
+  --paper: #fafbf9;
+  --panel: #f4f5f2;
+  --surface: #ffffff;
+
+  --ink: #0a1838;
+  --muted: #6a7280;
+  --line: #e3e6e1;
+  --line-strong: #cfd4cc;
+  --arrow: #8990a0;
+
+  --green-bg: #e6ede0;
+  --green-text: #5a6e4a;
+
+  --sidebar-text: rgba(248, 242, 232, 0.5);
+  --sidebar-text-faint: rgba(248, 242, 232, 0.25);
+  --sidebar-active-bg: rgba(248, 242, 232, 0.1);
+  --sidebar-line: rgba(248, 242, 232, 0.08);
+  --sidebar-ink: #f4f5f2;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, monospace;
+}

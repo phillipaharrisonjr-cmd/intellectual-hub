@@ -1,5 +1,15 @@
 'use strict';
 
+// Safety net for ANY test runner (BUG-026): vitest.config.js sets
+// PERSIST_ASSUMPTIONS=false, but a runner that never loads that config (e.g.
+// vitest invoked from the repo root) must still never write the real
+// config/revenue-assumptions.json. Redirect persistence to a temp file.
+const os = require('os');
+const nodePath = require('path');
+if (!process.env.ASSUMPTIONS_FILE) {
+  process.env.ASSUMPTIONS_FILE = nodePath.join(os.tmpdir(), `denali-test-assumptions-${process.pid}.json`);
+}
+
 // Helpers to build NACHA lines and JSON transactions for tests.
 
 function pad(s, n, right = true) {

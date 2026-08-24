@@ -29,6 +29,7 @@ Every bug gets a number, a root cause, and a regression test in `test/regression
 | BUG-023 | 2026-08-24 | `?limit=abc` returned nothing, `limit=-1` dropped a row, `total` was post-limit | No validation | Integer limit 1..100000, range filters must be numeric, `total` before limit plus `returned` | BUG-023 |
 | BUG-024 | 2026-08-24 | "ACH origination" held at the bank did not cover the "Payroll / ACH Origination" gap; unknown CIF ids silently became all-gaps | Exact string match, silent fallback | Loose product match (either side contains the other, or a `/`-separated part matches); `customerInCore` flag on every opportunity | BUG-024 |
 | BUG-025 | 2026-08-24 | `messages[]` bypassed the 4000-char cap on the assistant | Only `message` was checked | Conversation capped at 20 turns and 12000 chars; rate limiter map bounded | BUG-025 |
+| BUG-026 | 2026-08-24 | Running the tests from the repo root rewrote `config/revenue-assumptions.json` with test values (0.68% margin, version "test") | The `PERSIST_ASSUMPTIONS=false` guard lives in `backend/vitest.config.js`, which a foreign runner never loads; the assumptions file path was also frozen at module load | `fixtures.js` redirects `ASSUMPTIONS_FILE` to a temp path for any runner, and `app.js` resolves the path at write time | BUG-026 |
 
 ## Process
 
