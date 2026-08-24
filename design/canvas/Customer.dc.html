@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Inter', system-ui, 'Segoe UI', sans-serif; color: #0a1838; background: #fafbf9; -webkit-font-smoothing: antialiased; }
+    a { color: #22386b; text-decoration: none; } a:hover { opacity: 0.7; }
+    h1 { font-family: 'Playfair Display', Georgia, serif; }
+    h2, h3, .num { font-family: 'Inter', system-ui, sans-serif; }
+    .num { font-variant-numeric: tabular-nums; }
+    table { border-collapse: collapse; width: 100%; }
+    th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6a7280; padding: 0 0 10px 0; border-bottom: 1px solid #e3e6e1; }
+    td { padding: 9px 0; border-bottom: 1px solid #eaece9; font-size: 13px; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    .navgroup { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(248,242,232,0.25); padding: 8px 12px 4px 12px; }
+    .nav { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 5px; margin-bottom: 1px; font-size: 13px; font-weight: 400; color: rgba(248,242,232,0.5); position: relative; }
+    .nav.active { background: rgba(248,242,232,0.1); color: #ffffff; font-weight: 600; }
+    .navbar { position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; border-radius: 9999px; background: linear-gradient(180deg, #F0B82E, #E0A012); }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 4px; font-size: 12.5px; font-weight: 500; background: #fafbf9; border: 1px solid #e3e6e1; color: #22386b; }
+    .chip.gap { background: #fbe6c8; border-color: #F2D58A; color: #C28800; font-weight: 600; }
+    .desc { font-family: 'SF Mono', ui-monospace, Menlo, monospace; font-size: 12px; background: #fafbf9; border: 1px solid #e3e6e1; border-radius: 6px; padding: 3px 8px; color: #22386b; white-space: nowrap; }
+    .step { flex: 1; background: #f4f5f2; border: 1px solid #e3e6e1; border-radius: 8px; padding: 14px 16px; }
+    .step .label { font-size: 12px; color: #6a7280; font-weight: 500; }
+    .step .val { font-family: 'Inter', system-ui, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin-top: 6px; }
+    .step .sub { font-size: 11.5px; color: #6a7280; margin-top: 4px; }
+  </style>
+</helmet>
+
+<div style="display: flex; width: 1440px; height: 900px; background: #fafbf9; overflow: hidden;">
+
+  <aside style="display: flex; flex-direction: column; width: 240px; flex-shrink: 0; background: linear-gradient(180deg, #0a1838 0%, #0F204B 70%, #22386b 100%); color: #f4f5f2; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(115deg, #fff 0 1px, transparent 1px 24px); pointer-events: none;"></div>
+    <div style="display: flex; align-items: center; gap: 10px; padding: 20px 20px 16px 20px; position: relative;">
+      <svg width="30" height="30" viewBox="0 0 48 48"><defs><linearGradient id="dgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0B82E"></stop><stop offset="1" stop-color="#22386b"></stop></linearGradient><linearGradient id="dsn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdfaf5"></stop><stop offset="1" stop-color="#e0e2dd"></stop></linearGradient></defs><path d="M2.9 43.2L13 25.9L17.8 22.1L22.1 4.8L27.4 19.2L31.7 14.9L38.4 26.4L45.1 43.2Z" fill="url(#dgr)"></path><path d="M22.1 4.8L27.4 19.2L31.7 14.9L38.4 26.4L45.1 43.2L22.1 43.2Z" fill="#0a1838" opacity=".25"></path><path d="M22.1 4.8L26.6 16.8L24.7 13L23.8 19.2L22.6 12L21.5 20.6L20.2 13L19.2 19.2Z" fill="url(#dsn)"></path></svg>
+      <div style="line-height: 1;"><div style="font-size: 16px; font-weight: 800; letter-spacing: -0.02em; font-family: 'Playfair Display', Georgia, serif;">Denali</div>
+      <div style="font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: #F0B82E; margin-top: 3px;">Treasury Intelligence</div></div>
+    </div>
+    <nav style="flex-grow: 1; padding: 4px 10px; position: relative; display: flex; flex-direction: column; gap: 6px;">
+      <div>
+        <div class="navgroup">Daily</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Dashboard</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 18h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upload Center</span></div>
+        <div class="nav active"><span class="navbar"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Customers</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Intelligence</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M13 3 4 14h7l-1 7 9-11h-7z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>ACH Intelligence</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Income Projections</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 7h18v10H3zM3 11h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Merchant Residuals</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Pipeline</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Pipeline</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Referrals</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Approval Queue</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6zM14 2v6h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Executive Reports</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Admin</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 13a7.5 7.5 0 0 0 0-2l1.8-1.3-2-3.4-2 .9a7 7 0 0 0-1.7-1L15 4h-6l-.5 2.2a7 7 0 0 0-1.7 1l-2-.9-2 3.4L4.6 11a7.5 7.5 0 0 0 0 2l-1.8 1.3 2 3.4 2-.9a7 7 0 0 0 1.7 1L9 20h6l.5-2.2a7 7 0 0 0 1.7-1l2 .9 2-3.4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Settings</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Audit Log</span></div>
+      </div>
+    </nav>
+    <div style="position: relative; padding: 12px 14px; border-top: 1px solid rgba(248,242,232,0.08); display: flex; align-items: center; gap: 8px;">
+      <div style="width: 28px; height: 28px; border-radius: 50%; background: #E0A012; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff;">DW</div>
+      <div style="line-height: 1.2;"><div style="font-size: 12px; font-weight: 600; color: #f4f5f2;">Dana Whitfield</div><div style="font-size: 10px; color: rgba(248,242,232,0.4);">Banker</div></div>
+    </div>
+  </aside>
+
+  <main style="display: flex; flex-direction: column; flex-grow: 1; padding: 24px 36px 28px 36px; gap: 18px; box-sizing: border-box; overflow: hidden;">
+
+    <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+      <div>
+        <div style="font-size: 12.5px; color: #6a7280; font-weight: 500;">Opportunities&nbsp; / &nbsp;<span style="color: #0a1838;">123 Ford of Anchorage</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
+          <h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.025em; color: #0a1838;">123 Ford of Anchorage</h1>
+          <span style="padding: 4px 10px; border-radius: 4px; background: #e6ede0; color: #5a6e4a; font-size: 12px; font-weight: 700;">High confidence</span>
+        </div>
+        <div style="margin-top: 4px; font-size: 13.5px; color: #6a7280;">Auto dealer · Customer since 2014 · $6.8M avg deposits · $12.4M loans outstanding</div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div style="padding: 10px 16px; border-radius: 6px; border: 1px solid #cfd4cc; background: #FFFFFF; font-size: 13.5px; font-weight: 600; color: #22386b;">Add note</div>
+        <div style="padding: 10px 16px; border-radius: 6px; border: 1px solid #cfd4cc; background: #FFFFFF; font-size: 13.5px; font-weight: 600; color: #22386b;">Not a fit</div>
+        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 6px; background: #0F204B; color: #f4f5f2; font-size: 13.5px; font-weight: 700;">Refer to Merchant Services</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; flex-grow: 1; min-height: 0;">
+
+      <!-- Left column -->
+      <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
+
+        <!-- Relationship -->
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Relationship map</h2>
+            <div style="font-size: 12.5px; color: #6a7280;">6 products with us · 1 with a competitor</div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+            <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Operating DDA</span>
+            <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Floorplan line $9.1M</span>
+            <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>CRE mortgage $3.3M</span>
+            <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>ACH origination</span>
+            <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Business credit card</span>
+            <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Positive pay</span>
+            <span class="chip gap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C28800" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>Merchant services · Worldpay</span>
+          </div>
+        </div>
+
+        <!-- Projection -->
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <h2 style="margin: 0; font-size: 15px; font-weight: 700;">What we are missing on merchant services</h2>
+              <div style="margin-top: 3px; font-size: 12.5px; color: #6a7280;">Projection from 90 days of Worldpay settlements, Jun 1 – Aug 29</div>
+            </div>
+            <a href="#" style="font-size: 12.5px; font-weight: 600;">Edit assumptions</a>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px;">
+            <div class="step">
+              <div class="label">90-day settlements</div>
+              <div class="val num">$4.21M</div>
+              <div class="sub">63 deposits, 5 per week</div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8990a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+            <div class="step">
+              <div class="label">Gross card volume</div>
+              <div class="val num">$4.32M</div>
+              <div class="sub">at 2.4% blended processing cost</div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8990a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+            <div class="step">
+              <div class="label">Annualized volume</div>
+              <div class="val num">$17.3M</div>
+              <div class="sub">seasonality adjusted, dealer profile</div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8990a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+            <div class="step" style="background: #fbe6c8; border-color: #F2D58A;">
+              <div class="label" style="color: #C28800;">Net revenue to bank / yr</div>
+              <div class="val num" style="color: #C28800;">$58,900</div>
+              <div class="sub" style="color: #C28800;">0.34% net margin, card-present</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 24px; margin-top: 14px; padding-top: 14px; border-top: 1px solid #eaece9; font-size: 12.5px; color: #6a7280;">
+            <div><span style="font-weight: 600; color: #0a1838;">+ $1.1M</span> avg settlement balance moves to operating DDA</div>
+            <div><span style="font-weight: 600; color: #0a1838;">5-yr value</span> $294K at 100% retention</div>
+            <div><span style="font-weight: 600; color: #0a1838;">Peer pricing</span> Worldpay dealer contracts typically 2.3–2.6%</div>
+          </div>
+        </div>
+
+        <!-- Evidence -->
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px; flex-grow: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 24px;">
+          <div>
+            <h2 style="margin: 0; font-size: 15px; font-weight: 700;">ACH evidence</h2>
+            <div style="margin-top: 3px; font-size: 12.5px; color: #6a7280;">Most recent credits matching this descriptor</div>
+            <table style="margin-top: 12px;">
+              <thead><tr><th>Date</th><th>Descriptor</th><th>Account</th><th style="text-align: right;">Amount</th></tr></thead>
+              <tbody>
+                <tr><td class="num">Aug 28</td><td><span class="desc">WORLDPAY MERCH DEP 4471</span></td><td>Operating ···2231</td><td class="num" style="text-align: right; font-weight: 600;">$71,340.18</td></tr>
+                <tr><td class="num">Aug 27</td><td><span class="desc">WORLDPAY MERCH DEP 4471</span></td><td>Operating ···2231</td><td class="num" style="text-align: right; font-weight: 600;">$64,902.55</td></tr>
+                <tr><td class="num">Aug 26</td><td><span class="desc">WORLDPAY MERCH DEP 4471</span></td><td>Operating ···2231</td><td class="num" style="text-align: right; font-weight: 600;">$88,115.00</td></tr>
+                <tr><td class="num">Aug 25</td><td><span class="desc">WORLDPAY MERCH DEP 4471</span></td><td>Operating ···2231</td><td class="num" style="text-align: right; font-weight: 600;">$59,480.72</td></tr>
+                <tr><td class="num">Aug 22</td><td><span class="desc">WORLDPAY MERCH DEP 4471</span></td><td>Operating ···2231</td><td class="num" style="text-align: right; font-weight: 600;">$102,206.40</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Monthly settlements</div>
+            <div style="display: flex; align-items: flex-end; gap: 14px; height: 120px; margin-top: 14px;">
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;"><div class="num" style="font-size: 12px; font-weight: 600;">$1.31M</div><div style="width: 100%; height: 78px; border-radius: 6px 6px 0 0; background: #F2D58A;"></div></div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;"><div class="num" style="font-size: 12px; font-weight: 600;">$1.42M</div><div style="width: 100%; height: 85px; border-radius: 6px 6px 0 0; background: #F0B82E;"></div></div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;"><div class="num" style="font-size: 12px; font-weight: 600;">$1.48M</div><div style="width: 100%; height: 90px; border-radius: 6px 6px 0 0; background: #E0A012;"></div></div>
+            </div>
+            <div style="display: flex; gap: 14px; margin-top: 6px; font-size: 12px; color: #6a7280;"><div style="flex: 1; text-align: center;">Jun</div><div style="flex: 1; text-align: center;">Jul</div><div style="flex: 1; text-align: center;">Aug</div></div>
+            <div style="margin-top: 14px; font-size: 12.5px; color: #6a7280; line-height: 1.5;">Stable weekday cadence, no chargebacks visible, volume up 13% over the window.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
+
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Why we are confident</h2>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px;">
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.45;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="M20 6L9 17l-5-5"></path></svg>Descriptor matched to Worldpay merchant settlement pattern (99%)</div>
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.45;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="M20 6L9 17l-5-5"></path></svg>No merchant account for this customer in core</div>
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.45;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a6e4a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="M20 6L9 17l-5-5"></path></svg>63 of 64 business days show a deposit</div>
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.45;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E0A012" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="M12 8v5"></path><path d="M12 16h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>Contract term unknown, ask about renewal date</div>
+          </div>
+        </div>
+
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Talking points</h2>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px; font-size: 13px; line-height: 1.5; color: #22386b;">
+            <div>Settlements already land in their operating account here. Moving processing removes a day of float and one vendor.</div>
+            <div>Dealer card-present volume prices well. Offer a side-by-side statement review at their current 2.4% effective rate.</div>
+            <div>F&amp;I and service departments often run on separate MIDs. Ask who owns each.</div>
+          </div>
+        </div>
+
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px; flex-grow: 1;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Route this opportunity</h2>
+          <div style="margin-top: 12px; font-size: 12px; font-weight: 600; color: #6a7280;">Product partner</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 10px 12px; border: 1px solid #cfd4cc; border-radius: 6px; font-size: 13.5px;">
+            <span>Marcus Lee · Merchant Services</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6a7280" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+          </div>
+          <div style="margin-top: 12px; font-size: 12px; font-weight: 600; color: #6a7280;">Priority</div>
+          <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <div style="flex: 1; text-align: center; padding: 8px 0; border-radius: 8px; background: #0F204B; color: #f4f5f2; font-size: 12.5px; font-weight: 600;">This week</div>
+            <div style="flex: 1; text-align: center; padding: 8px 0; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">This month</div>
+            <div style="flex: 1; text-align: center; padding: 8px 0; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">Later</div>
+          </div>
+          <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #eaece9; font-size: 12.5px; color: #6a7280; line-height: 1.6;">Detected Jun 3 · Re-scored Aug 24 · Credit for the win goes to Dana Whitfield</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

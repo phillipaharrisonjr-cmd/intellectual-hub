@@ -1,0 +1,15 @@
+{
+  "artboards": [
+    { "file": "RequestAccess.dc.html", "title": "Request access", "x": 0, "y": 0, "w": 1440, "h": 900 },
+    { "file": "Main.dc.html", "title": "Banker · Dashboard", "x": 1560, "y": 0, "w": 1440, "h": 900 },
+    { "file": "Customer.dc.html", "title": "Banker · Customer opportunity", "x": 3120, "y": 0, "w": 1440, "h": 900 },
+    { "file": "LOB.dc.html", "title": "LOB head · Merchant queue", "x": 0, "y": 1060, "w": 1440, "h": 900 },
+    { "file": "Exec.dc.html", "title": "Executive · Bank-wide gap", "x": 1560, "y": 1060, "w": 1440, "h": 900 },
+    { "file": "Admin.dc.html", "title": "Admin · Descriptor intelligence", "x": 3120, "y": 1060, "w": 1440, "h": 900 }
+  ],
+  "annotations": [
+    { "id": "row-banker", "x": 0, "y": -150, "w": 520, "text": "Row 1: entry and banker flow. Request access (matches the existing signup), the banker dashboard, then one customer drilled in with the 90-day ACH projection math." },
+    { "id": "row-mgmt", "x": 0, "y": 910, "w": 520, "text": "Row 2: management and admin. Merchant Services head works the queue, the executive sees the bank-wide gap, admin maps new ACH descriptors and sets revenue assumptions." }
+  ],
+  "launch": { "view": "canvas" }
+}

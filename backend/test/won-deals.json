@@ -1,0 +1,5 @@
+[
+  { "customer": "Talkeetna Lodge", "product": "Merchant Services", "model": "merchant_cp", "flow": { "total": 2245000, "count": 61, "days": 90 }, "actualAnnualRevenue": 31400, "wonOn": "2026-08-18" },
+  { "customer": "Northway Tire", "product": "Merchant Services", "model": "merchant_cp", "flow": { "total": 1015000, "count": 58, "days": 90 }, "actualAnnualRevenue": 14200, "wonOn": "2026-07-30" },
+  { "customer": "Yukon Ready Mix", "product": "Purchase Card", "model": "purchase_card", "flow": { "total": 2070000, "count": 6, "days": 90 }, "actualAnnualRevenue": 88000, "wonOn": "2026-06-12" }
+]

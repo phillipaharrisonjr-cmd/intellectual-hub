@@ -1,0 +1,56 @@
+/* Denali Design System — Typography Tokens */
+
+:root {
+  /* ── Font Families ── */
+  --font-family-sans: "Inter", "Figtree", system-ui, "Segoe UI", sans-serif;
+  --font-family-mono: "SF Mono", "SFMono-Regular", ui-monospace, monospace;
+
+  /* ── Font Sizes ── */
+  --text-2xs: 9px;
+  --text-xs: 10px;
+  --text-sm: 11px;
+  --text-caption: 12px;
+  --text-body-sm: 13px;
+  --text-body: 14px;
+  --text-body-lg: 15px;
+  --text-md: 16px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+  --text-hero: 3.8rem;
+
+  /* ── Font Weights ── */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* ── Letter Spacing ── */
+  --tracking-body: -0.006em;
+  --tracking-tight: -0.02em;
+  --tracking-tighter: -0.024em;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.16em;
+  --tracking-widest: 0.2em;
+
+  /* ── Line Heights ── */
+  --leading-none: 1;
+  --leading-tight: 1.04;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  --leading-loose: 2;
+
+  /* ── Semantic Type Styles ── */
+  --heading-weight: var(--weight-extrabold);
+  --heading-tracking: var(--tracking-tight);
+  --label-size: var(--text-sm);
+  --label-weight: var(--weight-semibold);
+  --label-tracking: var(--tracking-wide);
+  --eyebrow-size: var(--text-caption);
+  --eyebrow-weight: var(--weight-bold);
+  --eyebrow-tracking: var(--tracking-wider);
+}

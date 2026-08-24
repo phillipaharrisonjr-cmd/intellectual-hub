@@ -1,0 +1,30 @@
+name: backend-ci
+on:
+  push:
+    paths: ['backend/**', '.github/workflows/ci.yml']
+  pull_request:
+    paths: ['backend/**']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test -- --reporter=verbose
+      - run: npm run test:replay
+      - name: smoke boot
+        run: |
+          PORT=3999 node server.js & sleep 2
+          curl -fsS localhost:3999/api/health | grep '"status":"ok"'

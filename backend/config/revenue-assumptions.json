@@ -1,0 +1,19 @@
+{
+  "_comment": "Bank-specific revenue assumptions. Set from your own product P&L. Every open opportunity re-scores when these change. windowDays is the ACH observation window.",
+  "version": "2.3",
+  "calibratedOn": "2026-08-01",
+  "windowDays": 90,
+  "depositSpread": 0.021,
+  "models": {
+    "merchant_cp": { "label": "Merchant services, card-present", "blendedProcessingCost": 0.024, "netMargin": 0.0034, "settlementBalanceDays": 1.5 },
+    "merchant_cnp": { "label": "Merchant services, card-not-present", "blendedProcessingCost": 0.029, "netMargin": 0.0055, "settlementBalanceDays": 2 },
+    "purchase_card": { "label": "Purchase card program", "netInterchange": 0.0105 },
+    "commercial_card": { "label": "Commercial card", "netInterchange": 0.013 },
+    "payroll": { "label": "Payroll / ACH origination", "perItem": 0.18, "monthlyFee": 45, "estimatedItemsPerRun": 24 },
+    "lockbox": { "label": "Lockbox / receivables", "perItem": 0.62, "monthlyFee": 175 },
+    "ap_automation": { "label": "AP automation / vendor payments", "perItem": 0.35, "monthlyFee": 95 },
+    "equipment_finance": { "label": "Equipment finance", "balanceMultiple": 4.5, "spread": 0.024 },
+    "term_loan": { "label": "Commercial loan or line", "balanceMultiple": 6, "spread": 0.024 },
+    "generic": { "label": "Other fee product", "feeRate": 0.005 }
+  }
+}

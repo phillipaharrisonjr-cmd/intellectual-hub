@@ -1,0 +1,106 @@
+/* Denali Design System — Color Tokens — Treasury Intelligence Platform */
+
+:root {
+  /* ── Navy (Primary) ── */
+  --navy: #0f2240;
+  --navy-deep: #091428;
+  --navy-mid: #1b3358;
+  --navy-light: #2d4a73;
+
+  /* ── Signal Red (CTA / Accent) ── */
+  --red: #bb0000;
+  --red-dark: #990000;
+  --red-hover: #a40000;
+  --red-gradient-end: #d61f39;
+  --red-light: #fbe4e7;
+  --red-ring: #f1c2ca;
+
+  /* ── Ink & Text ── */
+  --ink: #1c2530;
+  --muted: #5b6770;
+  --slate: #54636a;
+  --slate-light: #6b7d86;
+
+  /* ── Surface & Backgrounds ── */
+  --white: #ffffff;
+  --cream: #eef1f4;
+  --mist: #f3f5f7;
+  --frost: #f6f7f9;
+  --cloud: #eceef1;
+
+  /* ── Borders ── */
+  --line: #dfe3e8;
+  --line-dark: #cbd2da;
+  --line-light: #e6ebf1;
+
+  /* ── Badge Tones ── */
+  --badge-default-bg: #eef1f4;
+  --badge-default-text: #54636a;
+  --badge-default-ring: #dfe3e8;
+
+  --badge-green-bg: #e4f4e9;
+  --badge-green-text: #27753f;
+  --badge-green-ring: #bfe3cb;
+
+  --badge-amber-bg: #fcf0d7;
+  --badge-amber-text: #92640f;
+  --badge-amber-ring: #ecd6a3;
+
+  --badge-red-bg: #fbe4e7;
+  --badge-red-text: #ab2f45;
+  --badge-red-ring: #f1c2ca;
+
+  --badge-navy-bg: #0f2240;
+  --badge-navy-text: #ffffff;
+
+  --badge-gold-bg: #bb0000;
+  --badge-gold-text: #ffffff;
+
+  /* ── Chart Palette ── */
+  --chart-1: #0f2240;
+  --chart-2: #bb0000;
+  --chart-3: #5fb4d2;
+  --chart-4: #990000;
+  --chart-5: #1b3358;
+  --chart-6: #cbd2da;
+
+  /* ── Aurora (brand accents for decorative use) ── */
+  --aurora-green: #4ac99b;
+  --aurora-blue: #5fb4d2;
+  --aurora-purple: #7c8cdc;
+
+  /* ── Brand Gold (mountain mark gradients) ── */
+  --gold-light: #f0dcc0;
+  --gold: #d8ac60;
+  --gold-dark: #926c2c;
+
+  /* ── Semantic Aliases ── */
+  --color-brand: var(--navy);
+  --color-accent: var(--red);
+  --color-bg: var(--white);
+  --color-bg-secondary: var(--mist);
+  --color-bg-tertiary: var(--cream);
+  --color-surface: var(--white);
+  --color-border: var(--line);
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--muted);
+  --color-text-tertiary: var(--slate);
+  --color-text-disabled: var(--line-dark);
+  --color-text-inverse: var(--white);
+  --color-link: var(--navy);
+  --color-link-hover: var(--navy-deep);
+
+  /* ── Sidebar ── */
+  --sidebar-bg-start: #091428;
+  --sidebar-bg-mid: #0f2240;
+  --sidebar-bg-end: #1b3358;
+  --sidebar-text: rgba(255, 255, 255, 0.6);
+  --sidebar-text-active: #ffffff;
+  --sidebar-accent: var(--red);
+
+  /* ── Dark surfaces (footer, sidebar, modal overlay) ── */
+  --dark-bg: #091428;
+  --dark-surface: #0f2240;
+  --dark-text: #c9d4e6;
+  --dark-text-muted: rgba(255, 255, 255, 0.55);
+}

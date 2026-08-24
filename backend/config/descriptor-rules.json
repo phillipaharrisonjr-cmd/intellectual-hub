@@ -1,0 +1,44 @@
+{
+  "_comment": "Descriptor rules are data, not code. pattern is a case-insensitive regex tested against ORIGINATOR + ' ' + ENTRY DESCRIPTION. First match wins, so order specific before generic. ignore:true means the descriptor carries no product signal.",
+  "rules": [
+    { "id": "worldpay-merchant", "pattern": "WORLDPAY|VANTIV|WORLD ?PAY", "product": "Merchant Services", "vendor": "Worldpay", "direction": "credit", "model": "merchant_cp", "confidence": 0.97 },
+    { "id": "fiserv-merchant", "pattern": "FISERV MERCH|FIRST DATA|CLOVER|BANKCARD MTOT|MERCHANT (SVCS|SERVICES) DEP", "product": "Merchant Services", "vendor": "Fiserv", "direction": "credit", "model": "merchant_cp", "confidence": 0.95 },
+    { "id": "elavon-merchant", "pattern": "ELAVON|NOVA INFO", "product": "Merchant Services", "vendor": "Elavon", "direction": "credit", "model": "merchant_cp", "confidence": 0.95 },
+    { "id": "heartland-merchant", "pattern": "HEARTLAND|HRTLAND PMT", "product": "Merchant Services", "vendor": "Heartland", "direction": "credit", "model": "merchant_cp", "confidence": 0.94 },
+    { "id": "square-merchant", "pattern": "SQUARE INC|SQ \\*|SQUARE TRANSFER", "product": "Merchant Services", "vendor": "Square", "direction": "credit", "model": "merchant_cp", "confidence": 0.93 },
+    { "id": "toast-merchant", "pattern": "TOAST ?(INC|PAYOUT)?", "product": "Merchant Services", "vendor": "Toast", "direction": "credit", "model": "merchant_cp", "confidence": 0.92 },
+    { "id": "stripe-online", "pattern": "STRIPE", "product": "Merchant Services (Online)", "vendor": "Stripe", "direction": "credit", "model": "merchant_cnp", "confidence": 0.96 },
+    { "id": "paya-merchant", "pattern": "PAYA|NUVEI", "product": "Merchant Services", "vendor": "Paya (Nuvei)", "direction": "credit", "model": "merchant_cp", "confidence": 0.88 },
+    { "id": "amex-settle", "pattern": "AMERICAN EXPRESS SETTLEMENT|AMEX SETTLE", "product": "Merchant Services", "vendor": "American Express", "direction": "credit", "model": "merchant_cp", "confidence": 0.85 },
+
+    { "id": "umb-pcard", "pattern": "UMB (BANK )?PCARD|UMB .*PURCH", "product": "Purchase Card", "vendor": "UMB Bank", "direction": "debit", "model": "purchase_card", "confidence": 0.94 },
+    { "id": "generic-pcard", "pattern": "PCARD|P-CARD|PURCHASING CARD|PURCH CARD", "product": "Purchase Card", "vendor": "Unknown bank", "direction": "debit", "model": "purchase_card", "confidence": 0.8 },
+    { "id": "amex-card-pmt", "pattern": "AMEX EPAYMENT|AMERICAN EXPRESS ACH PMT", "product": "Commercial Card", "vendor": "American Express", "direction": "debit", "model": "commercial_card", "confidence": 0.9 },
+    { "id": "ramp-card", "pattern": "RAMP (CARD|PMT)", "product": "Commercial Card", "vendor": "Ramp", "direction": "debit", "model": "commercial_card", "confidence": 0.94 },
+    { "id": "brex-card", "pattern": "BREX", "product": "Commercial Card", "vendor": "Brex", "direction": "debit", "model": "commercial_card", "confidence": 0.93 },
+    { "id": "chase-card-pmt", "pattern": "CHASE CARD SVCS|CHASE CREDIT CRD", "product": "Commercial Card", "vendor": "JPMorgan Chase", "direction": "debit", "model": "commercial_card", "confidence": 0.86 },
+
+    { "id": "adp-payroll", "pattern": "ADP (PAY|PAYROLL|TX|WAGE)", "product": "Payroll / ACH Origination", "vendor": "ADP", "direction": "debit", "model": "payroll", "confidence": 0.97 },
+    { "id": "paychex-payroll", "pattern": "PAYCHEX", "product": "Payroll / ACH Origination", "vendor": "Paychex", "direction": "debit", "model": "payroll", "confidence": 0.97 },
+    { "id": "gusto-payroll", "pattern": "GUSTO", "product": "Payroll / ACH Origination", "vendor": "Gusto", "direction": "debit", "model": "payroll", "confidence": 0.97 },
+    { "id": "paylocity", "pattern": "PAYLOCITY", "product": "Payroll / ACH Origination", "vendor": "Paylocity", "direction": "debit", "model": "payroll", "confidence": 0.96 },
+    { "id": "intuit-payroll", "pattern": "INTUIT.*PAYROLL|QUICKBOOKS PAYROLL", "product": "Payroll / ACH Origination", "vendor": "Intuit", "direction": "debit", "model": "payroll", "confidence": 0.9 },
+
+    { "id": "chase-lockbox", "pattern": "CHASE LOCKBOX|JPMORGAN LOCKBOX", "product": "Lockbox / Receivables", "vendor": "JPMorgan Chase", "direction": "credit", "model": "lockbox", "confidence": 0.9 },
+    { "id": "wells-lockbox", "pattern": "WELLS FARGO LOCKBOX|WF LOCKBOX", "product": "Lockbox / Receivables", "vendor": "Wells Fargo", "direction": "credit", "model": "lockbox", "confidence": 0.9 },
+    { "id": "billcom", "pattern": "BILL\\.COM|BILL COM", "product": "AP Automation", "vendor": "Bill.com", "direction": "debit", "model": "ap_automation", "confidence": 0.9 },
+
+    { "id": "cat-financial", "pattern": "CAT FINANCIAL|CATERPILLAR FIN", "product": "Equipment Finance", "vendor": "Cat Financial", "direction": "debit", "model": "equipment_finance", "confidence": 0.9 },
+    { "id": "deere-financial", "pattern": "JOHN DEERE FIN|DEERE CREDIT", "product": "Equipment Finance", "vendor": "John Deere Financial", "direction": "debit", "model": "equipment_finance", "confidence": 0.9 },
+    { "id": "ford-credit", "pattern": "FORD (MOTOR )?CREDIT", "product": "Floorplan / Dealer Finance", "vendor": "Ford Credit", "direction": "debit", "model": "term_loan", "confidence": 0.85 },
+    { "id": "bluevine-loc", "pattern": "BLUEVINE", "product": "Line of Credit", "vendor": "Bluevine", "direction": "debit", "model": "term_loan", "confidence": 0.91 },
+    { "id": "ondeck", "pattern": "ONDECK|ON DECK", "product": "Alternative Lending", "vendor": "OnDeck", "direction": "debit", "model": "term_loan", "confidence": 0.9 },
+    { "id": "bank-loan-pmt", "pattern": "(CHASE|WELLS FARGO|BANK OF AMERICA|US BANK|PNC|TRUIST|REGIONS|KEYBANK|ZIONS).*(LOAN|LN) ?(PMT|PAYMENT)", "product": "Commercial Loan", "vendor": "Another bank", "direction": "debit", "model": "term_loan", "confidence": 0.82 },
+
+    { "id": "insurance", "pattern": "CHUBB|TRAVELERS|HARTFORD|LIBERTY MUTUAL|NATIONWIDE INS", "product": "Commercial Insurance", "vendor": "Insurance carrier", "direction": "debit", "model": "generic", "confidence": 0.7 },
+
+    { "id": "utility", "pattern": "PWR AUTH|ELECTRIC|ENERGY|GAS CO|WATER|UTILITY|UTIL ", "ignore": true, "confidence": 0.85 },
+    { "id": "tax", "pattern": "IRS |USATAXPYMT|DEPT OF REV|TAX PMT|EFTPS", "ignore": true, "confidence": 0.95 },
+    { "id": "rent", "pattern": "RENT|LEASE PMT|PROPERTY MGMT", "ignore": true, "confidence": 0.6 }
+  ]
+}

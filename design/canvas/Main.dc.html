@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Inter', system-ui, 'Segoe UI', sans-serif; color: #0a1838; background: #fafbf9; -webkit-font-smoothing: antialiased; }
+    a { color: #22386b; text-decoration: none; } a:hover { opacity: 0.7; }
+    h1 { font-family: 'Playfair Display', Georgia, serif; }
+    h2, h3, .num { font-family: 'Inter', system-ui, sans-serif; }
+    .num { font-variant-numeric: tabular-nums; }
+    table { border-collapse: collapse; width: 100%; }
+    th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6a7280; padding: 0 14px 12px 14px; border-bottom: 1px solid #e3e6e1; }
+    td { padding: 12px 14px; border-bottom: 1px solid #eaece9; font-size: 13px; vertical-align: middle; white-space: nowrap; }
+    th { white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    .navgroup { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(248,242,232,0.25); padding: 8px 12px 4px 12px; }
+    .nav { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 5px; margin-bottom: 1px; font-size: 13px; font-weight: 400; color: rgba(248,242,232,0.5); position: relative; }
+    .nav.active { background: rgba(248,242,232,0.1); color: #ffffff; font-weight: 600; }
+    .navbar { position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; border-radius: 9999px; background: linear-gradient(180deg, #F0B82E, #E0A012); }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+    .pill.high { background: #e6ede0; color: #5a6e4a; }
+    .pill.med { background: #fbe6c8; color: #C28800; }
+    .pill.low { background: #eaece9; color: #6a7280; }
+    .desc { font-family: 'SF Mono', ui-monospace, Menlo, monospace; font-size: 12px; background: #fafbf9; border: 1px solid #e3e6e1; border-radius: 6px; padding: 3px 8px; color: #22386b; white-space: nowrap; }
+  </style>
+</helmet>
+
+<div style="display: flex; width: 1440px; height: 900px; background: #fafbf9; overflow: hidden;">
+
+  <!-- Sidebar -->
+  <aside style="display: flex; flex-direction: column; width: 240px; flex-shrink: 0; background: linear-gradient(180deg, #0a1838 0%, #0F204B 70%, #22386b 100%); color: #f4f5f2; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(115deg, #fff 0 1px, transparent 1px 24px); pointer-events: none;"></div>
+    <div style="display: flex; align-items: center; gap: 10px; padding: 20px 20px 16px 20px; position: relative;">
+      <svg width="30" height="30" viewBox="0 0 48 48"><defs><linearGradient id="dgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0B82E"></stop><stop offset="1" stop-color="#22386b"></stop></linearGradient><linearGradient id="dsn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdfaf5"></stop><stop offset="1" stop-color="#e0e2dd"></stop></linearGradient></defs><path d="M2.9 43.2L13 25.9L17.8 22.1L22.1 4.8L27.4 19.2L31.7 14.9L38.4 26.4L45.1 43.2Z" fill="url(#dgr)"></path><path d="M22.1 4.8L27.4 19.2L31.7 14.9L38.4 26.4L45.1 43.2L22.1 43.2Z" fill="#0a1838" opacity=".25"></path><path d="M22.1 4.8L26.6 16.8L24.7 13L23.8 19.2L22.6 12L21.5 20.6L20.2 13L19.2 19.2Z" fill="url(#dsn)"></path></svg>
+      <div style="line-height: 1;"><div style="font-size: 16px; font-weight: 800; letter-spacing: -0.02em; font-family: 'Playfair Display', Georgia, serif;">Denali</div>
+      <div style="font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: #F0B82E; margin-top: 3px;">Treasury Intelligence</div></div>
+    </div>
+    <nav style="flex-grow: 1; padding: 4px 10px; position: relative; display: flex; flex-direction: column; gap: 6px;">
+      <div>
+        <div class="navgroup">Daily</div>
+        <div class="nav active"><span class="navbar"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Dashboard</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 18h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upload Center</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Customers</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Intelligence</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M13 3 4 14h7l-1 7 9-11h-7z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>ACH Intelligence</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Income Projections</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 7h18v10H3zM3 11h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Merchant Residuals</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Pipeline</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Pipeline</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Referrals</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Approval Queue</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6zM14 2v6h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Executive Reports</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Admin</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 13a7.5 7.5 0 0 0 0-2l1.8-1.3-2-3.4-2 .9a7 7 0 0 0-1.7-1L15 4h-6l-.5 2.2a7 7 0 0 0-1.7 1l-2-.9-2 3.4L4.6 11a7.5 7.5 0 0 0 0 2l-1.8 1.3 2 3.4 2-.9a7 7 0 0 0 1.7 1L9 20h6l.5-2.2a7 7 0 0 0 1.7-1l2 .9 2-3.4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Settings</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Audit Log</span></div>
+      </div>
+    </nav>
+    <div style="position: relative; padding: 12px 14px; border-top: 1px solid rgba(248,242,232,0.08); display: flex; align-items: center; gap: 8px;">
+      <div style="width: 28px; height: 28px; border-radius: 50%; background: #E0A012; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff;">DW</div>
+      <div style="line-height: 1.2;"><div style="font-size: 12px; font-weight: 600; color: #f4f5f2;">Dana Whitfield</div><div style="font-size: 10px; color: rgba(248,242,232,0.4);">Banker</div></div>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main style="display: flex; flex-direction: column; flex-grow: 1; padding: 28px 36px; gap: 22px; box-sizing: border-box; overflow: hidden;">
+
+    <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+      <div>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.025em; color: #0a1838; color: #0a1838;">Good morning, Dana</h1>
+        <div style="margin-top: 6px; font-size: 14px; color: #6a7280;">84 commercial relationships in your book · ACH refreshed today 6:10 AM · 90-day window Jun 1 – Aug 29</div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 6px; border: 1px solid #cfd4cc; background: #FFFFFF; font-size: 13.5px; font-weight: 600; color: #22386b;">Export book</div>
+        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 6px; background: #0F204B; color: #f4f5f2; font-size: 13.5px; font-weight: 700;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>New referral
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI tiles -->
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Missed annual revenue in your book</div>
+        <div class="num" style="margin-top: 10px; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: #C28800;">$1.42M</div>
+        <div style="margin-top: 6px; font-size: 12.5px; color: #6a7280;">across 61 product gaps at 47 customers</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Open opportunities</div>
+        <div class="num" style="margin-top: 10px; font-size: 32px; font-weight: 800; letter-spacing: -0.03em;">61</div>
+        <div style="margin-top: 6px; font-size: 12.5px; color: #6a7280;"><span style="color: #5a6e4a; font-weight: 600;">14 high confidence</span> · 9 new this week</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">In pipeline</div>
+        <div class="num" style="margin-top: 10px; font-size: 32px; font-weight: 800; letter-spacing: -0.03em;">$386K</div>
+        <div style="margin-top: 6px; font-size: 12.5px; color: #6a7280;">9 referrals with product partners</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Won year to date</div>
+        <div class="num" style="margin-top: 10px; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: #5a6e4a;">$212K</div>
+        <div style="margin-top: 6px; font-size: 12.5px; color: #6a7280;">7 products closed · 68% of 2026 goal</div>
+      </div>
+    </div>
+
+    <!-- Main row -->
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; flex-grow: 1; min-height: 0;">
+
+      <!-- Opportunity table -->
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 0 6px 0; display: flex; flex-direction: column; min-height: 0; overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 20px 16px 20px;">
+          <div>
+            <h2 style="margin: 0; font-size: 17px; font-weight: 700;">Top opportunities</h2>
+            <div style="margin-top: 3px; font-size: 12.5px; color: #6a7280;">Ranked by projected annual revenue to the bank</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <div style="padding: 6px 12px; border-radius: 8px; background: #0F204B; color: #f4f5f2; font-size: 12.5px; font-weight: 600;">All products</div>
+            <div style="padding: 6px 12px; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">Merchant</div>
+            <div style="padding: 6px 12px; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">Card</div>
+            <div style="padding: 6px 12px; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">Treasury</div>
+            <div style="padding: 6px 12px; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">Lending</div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="padding-left: 20px;">Customer</th>
+              <th>Product gap</th>
+              <th>Seen in ACH</th>
+              <th style="text-align: right;">90-day flow</th>
+              <th style="text-align: right;">Projected / yr</th>
+              <th>Confidence</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-left: 20px;"><div style="font-weight: 600;">123 Ford of Anchorage</div><div style="font-size: 12px; color: #6a7280;">Auto dealer · 6 products held</div></td>
+              <td><div style="font-weight: 500;">Merchant services</div><div style="font-size: 12px; color: #a04020;">Worldpay</div></td>
+              <td><span class="desc">WORLDPAY MERCH DEP</span></td>
+              <td class="num" style="text-align: right; font-weight: 600;">$4.21M</td>
+              <td class="num" style="text-align: right; font-weight: 700; color: #C28800;">$58,900</td>
+              <td><span class="pill high">High</span></td>
+              <td style="text-align: right;"><a href="#" style="font-weight: 600; font-size: 13px;">Review →</a></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><div style="font-weight: 600;">Kodiak Commercial Builders</div><div style="font-size: 12px; color: #6a7280;">Construction · 4 products held</div></td>
+              <td><div style="font-weight: 500;">Purchase card program</div><div style="font-size: 12px; color: #a04020;">UMB Bank</div></td>
+              <td><span class="desc">UMB BANK PCARD PMT</span></td>
+              <td class="num" style="text-align: right; font-weight: 600;">$1.12M</td>
+              <td class="num" style="text-align: right; font-weight: 700; color: #C28800;">$44,600</td>
+              <td><span class="pill high">High</span></td>
+              <td style="text-align: right;"><a href="#" style="font-weight: 600; font-size: 13px;">Review →</a></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><div style="font-weight: 600;">Tundra Logistics</div><div style="font-size: 12px; color: #6a7280;">Freight · 5 products held</div></td>
+              <td><div style="font-weight: 500;">Lockbox / receivables</div><div style="font-size: 12px; color: #a04020;">JPMorgan Chase</div></td>
+              <td><span class="desc">CHASE LOCKBOX CREDIT</span></td>
+              <td class="num" style="text-align: right; font-weight: 600;">$2.87M</td>
+              <td class="num" style="text-align: right; font-weight: 700; color: #C28800;">$31,200</td>
+              <td><span class="pill med">Medium</span></td>
+              <td style="text-align: right;"><a href="#" style="font-weight: 600; font-size: 13px;">Review →</a></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><div style="font-weight: 600;">Glacier Bay Seafood</div><div style="font-size: 12px; color: #6a7280;">Processing · 2 products held</div></td>
+              <td><div style="font-weight: 500;">Equipment finance</div><div style="font-size: 12px; color: #a04020;">Cat Financial</div></td>
+              <td><span class="desc">CAT FINANCIAL PMT</span></td>
+              <td class="num" style="text-align: right; font-weight: 600;">$198K</td>
+              <td class="num" style="text-align: right; font-weight: 700; color: #C28800;">$27,800</td>
+              <td><span class="pill med">Medium</span></td>
+              <td style="text-align: right;"><a href="#" style="font-weight: 600; font-size: 13px;">Review →</a></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><div style="font-weight: 600;">Aurora Hospitality Group</div><div style="font-size: 12px; color: #6a7280;">Hotels · 4 products held</div></td>
+              <td><div style="font-weight: 500;">Merchant services</div><div style="font-size: 12px; color: #a04020;">Fiserv</div></td>
+              <td><span class="desc">FISERV MERCHANT DEP</span></td>
+              <td class="num" style="text-align: right; font-weight: 600;">$1.93M</td>
+              <td class="num" style="text-align: right; font-weight: 700; color: #C28800;">$26,100</td>
+              <td><span class="pill high">High</span></td>
+              <td style="text-align: right;"><a href="#" style="font-weight: 600; font-size: 13px;">Review →</a></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><div style="font-weight: 600;">Northern Lights Dental</div><div style="font-size: 12px; color: #6a7280;">Healthcare · 3 products held</div></td>
+              <td><div style="font-weight: 500;">Payroll / ACH origination</div><div style="font-size: 12px; color: #a04020;">Paychex</div></td>
+              <td><span class="desc">PAYCHEX PAYROLL</span></td>
+              <td class="num" style="text-align: right; font-weight: 600;">$612K</td>
+              <td class="num" style="text-align: right; font-weight: 700; color: #C28800;">$18,400</td>
+              <td><span class="pill med">Medium</span></td>
+              <td style="text-align: right;"><a href="#" style="font-weight: 600; font-size: 13px;">Review →</a></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Right column -->
+      <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 22px;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Where the money is going</h2>
+          <div style="margin-top: 3px; font-size: 12.5px; color: #6a7280;">Missed revenue by product, your book</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 500;">Merchant services</span><span class="num" style="font-weight: 600;">$512K</span></div>
+              <div style="height: 8px; border-radius: 999px; background: #eaece9; margin-top: 6px;"><div style="height: 8px; width: 100%; border-radius: 999px; background: #E0A012;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 500;">Purchase &amp; commercial card</span><span class="num" style="font-weight: 600;">$318K</span></div>
+              <div style="height: 8px; border-radius: 999px; background: #eaece9; margin-top: 6px;"><div style="height: 8px; width: 62%; border-radius: 999px; background: #E0A012;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 500;">Payroll / ACH origination</span><span class="num" style="font-weight: 600;">$204K</span></div>
+              <div style="height: 8px; border-radius: 999px; background: #eaece9; margin-top: 6px;"><div style="height: 8px; width: 40%; border-radius: 999px; background: #E0A012;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 500;">Treasury management</span><span class="num" style="font-weight: 600;">$171K</span></div>
+              <div style="height: 8px; border-radius: 999px; background: #eaece9; margin-top: 6px;"><div style="height: 8px; width: 33%; border-radius: 999px; background: #E0A012;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 500;">Equipment finance</span><span class="num" style="font-weight: 600;">$128K</span></div>
+              <div style="height: 8px; border-radius: 999px; background: #eaece9; margin-top: 6px;"><div style="height: 8px; width: 25%; border-radius: 999px; background: #E0A012;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 500;">Insurance &amp; other</span><span class="num" style="font-weight: 600;">$87K</span></div>
+              <div style="height: 8px; border-radius: 999px; background: #eaece9; margin-top: 6px;"><div style="height: 8px; width: 17%; border-radius: 999px; background: #E0A012;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 22px; flex-grow: 1;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700;">New this week</h2>
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 8px; height: 8px; border-radius: 999px; background: #E0A012; margin-top: 6px; flex-shrink: 0;"></div>
+              <div style="font-size: 13px; line-height: 1.45;"><span style="font-weight: 600;">Kodiak Commercial Builders</span> started paying a UMB purchase card on Aug 14. First cycle $362K.</div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 8px; height: 8px; border-radius: 999px; background: #E0A012; margin-top: 6px; flex-shrink: 0;"></div>
+              <div style="font-size: 13px; line-height: 1.45;"><span style="font-weight: 600;">Aurora Hospitality</span> merchant deposits up 41% vs prior 90 days. Seasonal peak, good time to quote.</div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 8px; height: 8px; border-radius: 999px; background: #5a6e4a; margin-top: 6px; flex-shrink: 0;"></div>
+              <div style="font-size: 13px; line-height: 1.45;"><span style="font-weight: 600;">Tundra Logistics</span> referral accepted by Treasury. Proposal due Sep 4.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

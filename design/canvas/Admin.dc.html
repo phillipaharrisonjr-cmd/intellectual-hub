@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Inter', system-ui, 'Segoe UI', sans-serif; color: #0a1838; background: #fafbf9; -webkit-font-smoothing: antialiased; }
+    a { color: #22386b; text-decoration: none; } a:hover { opacity: 0.7; }
+    h1 { font-family: 'Playfair Display', Georgia, serif; }
+    h2, h3, .num { font-family: 'Inter', system-ui, sans-serif; }
+    .num { font-variant-numeric: tabular-nums; }
+    table { border-collapse: collapse; width: 100%; }
+    th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6a7280; padding: 0 16px 12px 16px; border-bottom: 1px solid #e3e6e1; }
+    td { padding: 12px 14px; border-bottom: 1px solid #eaece9; font-size: 13px; vertical-align: middle; white-space: nowrap; }
+    th { white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    .navgroup { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(248,242,232,0.25); padding: 8px 12px 4px 12px; }
+    .nav { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 5px; margin-bottom: 1px; font-size: 13px; font-weight: 400; color: rgba(248,242,232,0.5); position: relative; }
+    .nav.active { background: rgba(248,242,232,0.1); color: #ffffff; font-weight: 600; }
+    .navbar { position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; border-radius: 9999px; background: linear-gradient(180deg, #F0B82E, #E0A012); }
+    .desc { font-family: 'SF Mono', ui-monospace, Menlo, monospace; font-size: 12px; background: #fafbf9; border: 1px solid #e3e6e1; border-radius: 6px; padding: 3px 8px; color: #22386b; white-space: nowrap; }
+    .pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+    .pill.high { background: #e6ede0; color: #5a6e4a; }
+    .pill.med { background: #fbe6c8; color: #C28800; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 600; }
+    .btn.ok { background: #0F204B; color: #FFFFFF; }
+    .btn.ghost { border: 1px solid #cfd4cc; color: #22386b; }
+    .sys { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; white-space: nowrap; border-bottom: 1px solid #eaece9; font-size: 13px; }
+    .sys:last-child { border-bottom: none; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: #5a6e4a; display: inline-block; margin-right: 8px; }
+    .assump { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; white-space: nowrap; gap: 12px; border-bottom: 1px solid #eaece9; font-size: 13px; }
+    .assump:last-child { border-bottom: none; }
+  </style>
+</helmet>
+
+<div style="display: flex; width: 1440px; height: 900px; background: #fafbf9; overflow: hidden;">
+  <aside style="display: flex; flex-direction: column; width: 240px; flex-shrink: 0; background: linear-gradient(180deg, #0a1838 0%, #0F204B 70%, #22386b 100%); color: #f4f5f2; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(115deg, #fff 0 1px, transparent 1px 24px); pointer-events: none;"></div>
+    <div style="display: flex; align-items: center; gap: 10px; padding: 20px 20px 16px 20px; position: relative;">
+      <svg width="30" height="30" viewBox="0 0 48 48"><defs><linearGradient id="dgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0B82E"></stop><stop offset="1" stop-color="#22386b"></stop></linearGradient><linearGradient id="dsn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdfaf5"></stop><stop offset="1" stop-color="#e0e2dd"></stop></linearGradient></defs><path d="M2.9 43.2L13 25.9L17.8 22.1L22.1 4.8L27.4 19.2L31.7 14.9L38.4 26.4L45.1 43.2Z" fill="url(#dgr)"></path><path d="M22.1 4.8L27.4 19.2L31.7 14.9L38.4 26.4L45.1 43.2L22.1 43.2Z" fill="#0a1838" opacity=".25"></path><path d="M22.1 4.8L26.6 16.8L24.7 13L23.8 19.2L22.6 12L21.5 20.6L20.2 13L19.2 19.2Z" fill="url(#dsn)"></path></svg>
+      <div style="line-height: 1;"><div style="font-size: 16px; font-weight: 800; letter-spacing: -0.02em; font-family: 'Playfair Display', Georgia, serif;">Denali</div>
+      <div style="font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: #F0B82E; margin-top: 3px;">Treasury Intelligence</div></div>
+    </div>
+    <nav style="flex-grow: 1; padding: 4px 10px; position: relative; display: flex; flex-direction: column; gap: 6px;">
+      <div>
+        <div class="navgroup">Daily</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Dashboard</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 18h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upload Center</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Customers</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Intelligence</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M13 3 4 14h7l-1 7 9-11h-7z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>ACH Intelligence</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Income Projections</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 7h18v10H3zM3 11h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Merchant Residuals</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Pipeline</div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Pipeline</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Referrals</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Approval Queue</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6zM14 2v6h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Executive Reports</span></div>
+      </div>
+      <div>
+        <div class="navgroup">Admin</div>
+        <div class="nav active"><span class="navbar"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 13a7.5 7.5 0 0 0 0-2l1.8-1.3-2-3.4-2 .9a7 7 0 0 0-1.7-1L15 4h-6l-.5 2.2a7 7 0 0 0-1.7 1l-2-.9-2 3.4L4.6 11a7.5 7.5 0 0 0 0 2l-1.8 1.3 2 3.4 2-.9a7 7 0 0 0 1.7 1L9 20h6l.5-2.2a7 7 0 0 0 1.7-1l2 .9 2-3.4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Settings</span></div>
+        <div class="nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Audit Log</span></div>
+      </div>
+    </nav>
+    <div style="position: relative; padding: 12px 14px; border-top: 1px solid rgba(248,242,232,0.08); display: flex; align-items: center; gap: 8px;">
+      <div style="width: 28px; height: 28px; border-radius: 50%; background: #E0A012; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff;">SI</div>
+      <div style="line-height: 1.2;"><div style="font-size: 12px; font-weight: 600; color: #f4f5f2;">Sam Iverson</div><div style="font-size: 10px; color: rgba(248,242,232,0.4);">Admin</div></div>
+    </div>
+  </aside>
+  <main style="display: flex; flex-direction: column; flex-grow: 1; padding: 28px 36px; gap: 20px; box-sizing: border-box; overflow: hidden;">
+
+    <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+      <div>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.025em; color: #0a1838;">Descriptor intelligence</h1>
+        <div style="margin-top: 6px; font-size: 14px; color: #6a7280;">12,418 unique descriptors in 90 days · 1,860 vendors · 312 institutions · 14 product lines</div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div style="padding: 10px 16px; border-radius: 6px; border: 1px solid #cfd4cc; background: #FFFFFF; font-size: 13.5px; font-weight: 600; color: #22386b;">Import mapping file</div>
+        <div style="padding: 10px 16px; border-radius: 6px; background: #0F204B; color: #f4f5f2; font-size: 13.5px; font-weight: 700;">Re-run projections</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Descriptors mapped</div>
+        <div class="num" style="margin-top: 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #5a6e4a;">96.2%</div>
+        <div style="margin-top: 4px; font-size: 12.5px; color: #6a7280;">98.7% of dollar volume</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Waiting for review</div>
+        <div class="num" style="margin-top: 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #C28800;">471</div>
+        <div style="margin-top: 4px; font-size: 12.5px; color: #6a7280;">$3.1M of 90-day flow unclassified</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Last core pull</div>
+        <div class="num" style="margin-top: 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.03em;">6:04 AM</div>
+        <div style="margin-top: 4px; font-size: 12.5px; color: #6a7280;">184,220 transactions · 0 rejects</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6a7280;">Projection accuracy</div>
+        <div class="num" style="margin-top: 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.03em;">±7%</div>
+        <div style="margin-top: 4px; font-size: 12.5px; color: #6a7280;">projected vs actual on 58 wins this year</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; flex-grow: 1; min-height: 0;">
+
+      <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 20px 0 6px 0; display: flex; flex-direction: column; min-height: 0;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 20px 16px 20px;">
+          <div>
+            <h2 style="margin: 0; font-size: 17px; font-weight: 700;">Needs a human</h2>
+            <div style="margin-top: 3px; font-size: 12.5px; color: #6a7280;">Ranked by dollars at stake. Accept or fix, every customer with that descriptor re-scores.</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <div style="padding: 6px 12px; border-radius: 8px; background: #0F204B; color: #f4f5f2; font-size: 12.5px; font-weight: 600;">By dollars</div>
+            <div style="padding: 6px 12px; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">By customers</div>
+            <div style="padding: 6px 12px; border-radius: 8px; border: 1px solid #cfd4cc; font-size: 12.5px; font-weight: 500; color: #22386b;">Newest</div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="padding-left: 20px; width: 190px;">Descriptor</th>
+              <th style="text-align: right; width: 80px;">Customers</th>
+              <th style="text-align: right; width: 80px;">90-day $</th>
+              <th>Suggested mapping</th>
+              <th style="width: 60px;">Match</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-left: 20px;"><span class="desc">PAYA ACH SETTLE 8821</span></td>
+              <td class="num" style="text-align: right;">14</td>
+              <td class="num" style="text-align: right; font-weight: 600;">$2.9M</td>
+              <td><div style="font-weight: 500;">Merchant services</div><div style="font-size: 12px; color: #6a7280;">Paya (Nuvei) settlement credits</div></td>
+              <td><span class="pill med">88%</span></td>
+              <td style="text-align: right;"><div style="display: inline-flex; gap: 6px;"><span class="btn ok">Accept</span><span class="btn ghost">Edit</span></div></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><span class="desc">GUSTO PAYROLL</span></td>
+              <td class="num" style="text-align: right;">22</td>
+              <td class="num" style="text-align: right; font-weight: 600;">$1.6M</td>
+              <td><div style="font-weight: 500;">Payroll / ACH origination</div><div style="font-size: 12px; color: #6a7280;">Gusto, small-business payroll debits</div></td>
+              <td><span class="pill high">97%</span></td>
+              <td style="text-align: right;"><div style="display: inline-flex; gap: 6px;"><span class="btn ok">Accept</span><span class="btn ghost">Edit</span></div></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><span class="desc">STRIPE TRANSFER</span></td>
+              <td class="num" style="text-align: right;">18</td>
+              <td class="num" style="text-align: right; font-weight: 600;">$1.1M</td>
+              <td><div style="font-weight: 500;">Merchant services, online</div><div style="font-size: 12px; color: #6a7280;">Stripe payouts, card-not-present model</div></td>
+              <td><span class="pill high">96%</span></td>
+              <td style="text-align: right;"><div style="display: inline-flex; gap: 6px;"><span class="btn ok">Accept</span><span class="btn ghost">Edit</span></div></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><span class="desc">RAMP CARD PMT</span></td>
+              <td class="num" style="text-align: right;">9</td>
+              <td class="num" style="text-align: right; font-weight: 600;">$788K</td>
+              <td><div style="font-weight: 500;">Commercial card</div><div style="font-size: 12px; color: #6a7280;">Ramp corporate card statement debits</div></td>
+              <td><span class="pill high">94%</span></td>
+              <td style="text-align: right;"><div style="display: inline-flex; gap: 6px;"><span class="btn ok">Accept</span><span class="btn ghost">Edit</span></div></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px;"><span class="desc">BLUEVINE PMT</span></td>
+              <td class="num" style="text-align: right;">6</td>
+              <td class="num" style="text-align: right; font-weight: 600;">$412K</td>
+              <td><div style="font-weight: 500;">Line of credit</div><div style="font-size: 12px; color: #6a7280;">Bluevine, weekly loan payments</div></td>
+              <td><span class="pill high">91%</span></td>
+              <td style="text-align: right;"><div style="display: inline-flex; gap: 6px;"><span class="btn ok">Accept</span><span class="btn ghost">Edit</span></div></td>
+            </tr>
+            
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0;">
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Core and system connections</h2>
+          <div style="margin-top: 8px;">
+            <div class="sys"><span><span class="dot"></span><span style="font-weight: 600;">Jack Henry SilverLake</span> · ACH</span><span style="color: #6a7280; font-size: 12.5px;">daily 6:00</span></div>
+            <div class="sys"><span><span class="dot"></span><span style="font-weight: 600;">SilverLake</span> · CIF, products held</span><span style="color: #6a7280; font-size: 12.5px;">nightly</span></div>
+            <div class="sys"><span><span class="dot"></span><span style="font-weight: 600;">Salesforce FSC</span> · referrals</span><span style="color: #6a7280; font-size: 12.5px;">15 min</span></div>
+            <div class="sys"><span><span class="dot" style="background: #E0A012;"></span><span style="font-weight: 600;">Merchant portal</span> · won actuals</span><span style="color: #C28800; font-size: 12.5px; font-weight: 600;">file, weekly</span></div>
+            <div class="sys"><span><span class="dot" style="background: #cfd4cc;"></span><span style="font-weight: 600;">Fiserv / FIS core</span> · not in use</span><span style="color: #6a7280; font-size: 12.5px;">available</span></div>
+          </div>
+        </div>
+
+        <div style="background: #FFFFFF; border: 1px solid #e3e6e1; border-radius: 8px; padding: 18px 22px; flex-grow: 1;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 700;">Revenue assumptions</h2>
+            <span style="font-size: 12px; color: #6a7280;">calibrated Aug 1 · v2.3</span>
+          </div>
+          <div style="margin-top: 8px;">
+            <div class="assump"><span>Merchant, card-present net margin</span><span class="num" style="font-weight: 600;">0.34%</span></div>
+            <div class="assump"><span>Merchant, card-not-present margin</span><span class="num" style="font-weight: 600;">0.55%</span></div>
+            <div class="assump"><span>Purchase card net interchange</span><span class="num" style="font-weight: 600;">1.05%</span></div>
+            <div class="assump"><span>Commercial card net interchange</span><span class="num" style="font-weight: 600;">1.30%</span></div>
+            <div class="assump"><span>ACH origination, per item + monthly</span><span class="num" style="font-weight: 600;">$0.18 + $45</span></div>
+            <div class="assump"><span>Lockbox, per item + monthly</span><span class="num" style="font-weight: 600;">$0.62 + $175</span></div>
+            <div class="assump"><span>Loan spread over funding cost</span><span class="num" style="font-weight: 600;">2.40%</span></div>
+            <div class="assump"><span>Value of deposits gained</span><span class="num" style="font-weight: 600;">2.10%</span></div>
+          </div>
+          <div style="margin-top: 10px; font-size: 12px; color: #6a7280; line-height: 1.5;">Set from your own product P&amp;L. Changing one re-scores every open opportunity.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

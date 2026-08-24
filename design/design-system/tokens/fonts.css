@@ -1,0 +1,12 @@
+/* Denali Design System — @font-face / Font Imports */
+
+/* Inter from Google Fonts — primary UI typeface */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "denali-icon-font";
+  src: url("../assets/icons/denali-icon-font.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}

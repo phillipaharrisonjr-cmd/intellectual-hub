@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Denali Handoff</title>
+<style>
+  :root { --navy:#0a1838; --navy2:#0F204B; --amber:#E0A012; --ink:#1c2530; --muted:#5b6770; --line:#e3e6e1; --bg:#fafbf9; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:var(--bg); line-height:1.55; }
+  header { background:linear-gradient(155deg,#081432 0%,#0F204B 42%,#22386b 100%); color:#f4f5f2; padding:40px 48px; }
+  header h1 { margin:0; font-family: "Playfair Display", Georgia, serif; font-size:34px; letter-spacing:-0.02em; }
+  header p { margin:8px 0 0; color:rgba(233,240,252,.75); max-width:720px; }
+  header .tag { font-size:10px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--amber); margin-bottom:10px; }
+  main { max-width:960px; margin:0 auto; padding:32px 48px 64px; }
+  h2 { font-family:"Playfair Display", Georgia, serif; font-size:22px; margin:40px 0 12px; color:var(--navy); }
+  h3 { font-size:15px; margin:22px 0 8px; color:var(--navy2); }
+  p, li { font-size:15px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:18px 22px; margin:12px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
+  code, pre { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-size:13px; }
+  pre { background:#0f172a; color:#e2e8f0; padding:14px 16px; border-radius:8px; overflow-x:auto; }
+  code { background:#eef1f4; padding:2px 6px; border-radius:4px; }
+  pre code { background:none; padding:0; }
+  table { border-collapse:collapse; width:100%; font-size:13.5px; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th { text-align:left; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--line); background:#f4f5f2; }
+  td { padding:9px 12px; border-bottom:1px solid #eef1f4; vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  .num { font-variant-numeric:tabular-nums; }
+  .kpi { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:16px 0; }
+  .kpi div { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+  .kpi b { display:block; font-size:24px; color:var(--navy); letter-spacing:-.02em; }
+  .kpi span { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:600; }
+  .paste { border-left:3px solid var(--amber); }
+  a { color:#22386b; }
+  .muted { color:var(--muted); }
+  ol li, ul li { margin:4px 0; }
+</style>
+</head>
+<body>
+<header>
+  <div class="tag">Handoff to Claude Code</div>
+  <h1>Denali: what exists as of August 24, 2026</h1>
+  <p>Everything built in the Cowork session, where it lives, how to run it, and the rules to keep building the same way. Paste the block in section 1 into Claude Code after unzipping the drop.</p>
+</header>
+<main>
+
+<div class="kpi">
+  <div><b>6</b><span>portal screens designed</span></div>
+  <div><b>18</b><span>API endpoints</span></div>
+  <div><b class="num">55</b><span>backend tests, all green</span></div>
+  <div><b class="num">25</b><span>bugs found, fixed, pinned</span></div>
+  <div><b>36</b><span>descriptor rules</span></div>
+</div>
+
+<h2>1. What to tell Claude Code</h2>
+<div class="card paste">
+<p>After unzipping <code>denali-drop.zip</code> into the Denali project folder, paste this:</p>
+<pre><code>I added backend/, design/, docs/ and .github/ from another session. Read docs/AGENTS.md and
+docs/denali-engineering-workflow.md and follow them from now on. Run `cd backend && npm install && npm test`
+and tell me what passes. Then commit everything with the message "Merge Cowork backend, design canvas, and docs".
+Next task: wire the frontend Customer screen (design/canvas/Customer.dc.html) to
+GET /api/customers/:id so the projection steps, explanation and evidence render from the API.</code></pre>
+</div>
+
+<h2>2. Folder layout in the drop</h2>
+<div class="card">
+<pre><code>backend/                Node + Express service (merged from your Intellectual Hub server)
+  server.js             boot
+  src/app.js            routes, role guard, error handler
+  src/ach/parseNacha.js NACHA parser
+  src/intelligence/     descriptors.js, projection.js, opportunities.js
+  src/reports.js        sortable report + CSV
+  src/validate.js       every inbound payload
+  src/assistant.js      Denali assistant (OpenAI, fallback without key)
+  config/               descriptor-rules.json, revenue-assumptions.json  (data, not code)
+  test/                 55 tests incl. regressions.test.js + won-deals.json replay
+  BUGS.md               bug ledger, one row per regression test
+  README.md             API reference and setup
+design/
+  canvas/               Main, Customer, LOB, Exec, Admin, RequestAccess .dc.html + canvas.json
+  design-system/        tokens (colors, type, spacing, shadows), readme, adherence lint
+  assets/               logos
+docs/
+  AGENTS.md             the short rules file Claude Code reads first
+  denali-engineering-workflow.md   how we build (Pocock-style)
+  denali-daily-scan-skill.md       the 5 AM scan, as a skill
+  HANDOFF.html          this page
+.github/workflows/backend-ci.yml   lint + test + replay + smoke boot on Node 18/20/22</code></pre>
+</div>
+
+<h2>3. The product in one paragraph</h2>
+<p>Denali reads a bank's ACH activity (NACHA file upload first, core integration later), classifies each descriptor against rules to find the products a commercial customer runs at another institution (Worldpay merchant settlements, a UMB purchase card, Paychex payroll, a Chase lockbox), compares that with what the bank already holds, and projects the revenue the bank is missing from 90 days of flow. Each opportunity carries a score, a written explanation, evidence rows and the projection math. Bankers refer, approvers approve, and only then does anything push one-way to CRM. Every action is audited.</p>
+
+<h2>4. The six screens (design canvas)</h2>
+<p>Live canvas: <a href="https://claude.ai/code/artifact/6d5430a2-3027-4a5d-bfa6-95e1929a5102">claude.ai/code/artifact/6d5430a2…</a>. Same files are in <code>design/canvas/</code>. Style matches the existing Denali work: navy, amber, Playfair Display headings, Inter body, dark gradient sidebar with amber active bar.</p>
+<div class="grid">
+  <div class="card"><h3>Request access</h3><p class="muted">Two-panel signup, step 1 of 4, from the existing app.jsx.</p></div>
+  <div class="card"><h3>Banker dashboard (Main)</h3><p class="muted">Missed revenue in the book, ranked opportunities with descriptor evidence, product breakdown, new this week.</p></div>
+  <div class="card"><h3>Customer opportunity</h3><p class="muted">Relationship map, the 90-day projection math step by step, ACH evidence, confidence signals, talking points, routing.</p></div>
+  <div class="card"><h3>Merchant services queue (LOB head)</h3><p class="muted">Pipeline board across all bankers, who has our merchants, bankers feeding the queue.</p></div>
+  <div class="card"><h3>Executive gap report</h3><p class="muted">Bank-wide missed vs recovered by product line, monthly recovered trend, top 10 gaps, who holds the wallet.</p></div>
+  <div class="card"><h3>Admin descriptor intelligence</h3><p class="muted">Unmapped descriptors ranked by dollars, core connections, revenue assumptions.</p></div>
+</div>
+
+<h2>5. Backend API</h2>
+<p>Roles via <code>x-denali-role</code> header (analyst, approver, executive, admin), required on every route but health. <code>x-denali-user</code> names the person and is required on approve, reject, push. Placeholder for SSO.</p>
+<table>
+<tr><th>Method</th><th>Path</th><th>Role</th><th>Does</th></tr>
+<tr><td>GET</td><td><code>/api/health</code></td><td>any</td><td>status, version, aiConfigured</td></tr>
+<tr><td>POST</td><td><code>/api/core/customers</code></td><td>admin, analyst</td><td>load CIF rows (id, name, officer, industry, city, state, sic, naics, entityType, annualRevenue, relationshipSince, heldAtBank). Patch semantics.</td></tr>
+<tr><td>POST</td><td><code>/api/uploads</code></td><td>analyst, admin</td><td>NACHA as text/plain or JSON transactions. Dedupes re-uploads.</td></tr>
+<tr><td>POST</td><td><code>/api/scan</code></td><td>analyst, admin</td><td>classify + project, keeps referral status, returns summary + unmapped descriptors</td></tr>
+<tr><td>GET</td><td><code>/api/opportunities</code>, <code>/:id</code></td><td>any</td><td>list (officer, product, minScore) and detail</td></tr>
+<tr><td>GET</td><td><code>/api/customers/:id</code></td><td>any</td><td>customer, products held, opportunities</td></tr>
+<tr><td>GET</td><td><code>/api/reports/opportunities</code></td><td>any</td><td>flat report. <code>?sort=state,-projectedRevenue</code>, filters by city, state, sic, naics, entityType, officer, branch, product, min/max ranges, <code>format=csv</code></td></tr>
+<tr><td>POST</td><td><code>/api/referrals</code></td><td>analyst, admin</td><td>submit, snapshots the projection</td></tr>
+<tr><td>POST</td><td><code>/api/referrals/:id/approve</code> · <code>/reject</code> · <code>/push</code></td><td>approver, admin</td><td>approval gate, one-way CRM push from the snapshot</td></tr>
+<tr><td>GET/PUT</td><td><code>/api/admin/assumptions</code></td><td>admin</td><td>revenue assumptions, validated, dry-run, rollback, persisted</td></tr>
+<tr><td>GET</td><td><code>/api/admin/descriptors/unmapped</code></td><td>admin, analyst</td><td>unknown descriptors by dollars</td></tr>
+<tr><td>GET</td><td><code>/api/audit</code></td><td>approver, exec, admin</td><td>audit log</td></tr>
+<tr><td>POST</td><td><code>/api/chat</code></td><td>any</td><td>Denali assistant, optional opportunityId, rate limited</td></tr>
+</table>
+
+<h3>How a projection is built</h3>
+<div class="card">
+<p>Only rows inside the trailing 90 days count. Merchant: settlements ÷ (1 − 2.4% processing cost) → × 365/90 → × 0.34% net margin. Card: payments × 365/90 × net interchange. Payroll / lockbox / AP: runs × items × per-item + monthly fee. Loans / equipment: annual payments × balance multiple × spread. All rates live in <code>backend/config/revenue-assumptions.json</code>, and the 123 Ford example ($4.21M settlements → ≈$59K/yr) is pinned in a test.</p>
+</div>
+
+<h2>6. How we build (the workflow)</h2>
+<div class="card">
+<ol>
+  <li><b>Align.</b> Interview until both sides describe the finished thing the same way (grill-me).</li>
+  <li><b>Plan.</b> PRD → GitHub issues with acceptance criteria a test can check.</li>
+  <li><b>Slice.</b> Vertical slices: ACH row → rule → score → API → screen. Ugliest version end to end first.</li>
+  <li><b>TDD.</b> Failing test first, every time.</li>
+  <li><b>Review and guard.</b> Fresh-context agent reviews the diff. Git guardrails on. Humans read anything that changes money, referral state, or auth.</li>
+</ol>
+<p>Bugs are removed, not fixed: each one gets <code>BUG-NNN</code> in <code>backend/test/regressions.test.js</code> and a row in <code>backend/BUGS.md</code> with the root cause. CI refuses red. Full text in <code>docs/denali-engineering-workflow.md</code>.</p>
+</div>
+
+<h2>7. Bugs found and pinned today</h2>
+<table>
+<tr><th>ID</th><th>What was wrong</th></tr>
+<tr><td>001</td><td>Same file uploaded twice doubled projections</td></tr>
+<tr><td>002–005, 008</td><td>Bad amounts, dates, JSON, query params, assumptions, referral bodies got through</td></tr>
+<tr><td>006</td><td>Prenotes counted as deposits</td></tr>
+<tr><td>007, 025</td><td>Assistant had no rate limit; messages[] bypassed the size cap</td></tr>
+<tr><td>009, 010</td><td>Stack traces leaked; oversize bodies</td></tr>
+<tr><td>011</td><td>Case/spacing split one vendor into many</td></tr>
+<tr><td>012, 013</td><td>Six months of history doubled projections; annualization used customer span, not the window</td></tr>
+<tr><td>014, 015, 019</td><td>Rescan wiped referred status; CRM push read live numbers and could crash; pushed referrals could be rejected</td></tr>
+<tr><td>016</td><td>Assumptions PUT could half-apply and poison every number</td></tr>
+<tr><td>017, 024</td><td>CIF loads wiped products held; product name matching too strict</td></tr>
+<tr><td>018</td><td>Dedupe dropped legitimate same-amount entries</td></tr>
+<tr><td>020, 021</td><td>Submitter could approve own referral; missing role header ran as analyst</td></tr>
+<tr><td>022, 023</td><td>CSV formula injection; report limit unvalidated</td></tr>
+</table>
+
+<h2>8. Also set up</h2>
+<div class="card">
+<ul>
+  <li><b>5:00 AM daily scan</b> (Chicago). Reads project docs, searches the week's bank, payments, core and competitor news, proposes 3–5 enhancements, writes <code>claude/enhancement-backlog.md</code> and <code>claude/scans/YYYY-MM-DD.md</code> in the Denali project, pushes a summary. Same task is available as the <code>denali-daily-scan</code> skill.</li>
+  <li><b>Project docs</b> (visible in every session attached to the Denali project): <code>claude/denali-concept.md</code>, <code>claude/denali-engineering-workflow.md</code>, <code>claude/denali-backend-status.md</code>.</li>
+</ul>
+</div>
+
+<h2>9. Open items, in order</h2>
+<div class="card">
+<ol>
+  <li>Wire the frontend Customer screen to <code>GET /api/customers/:id</code> (first tracer bullet)</li>
+  <li>Descriptor accept/edit endpoint that writes a rule to config, reloads, rescans</li>
+  <li>Real auth (SSO/JWT) replacing the role headers</li>
+  <li>Postgres behind <code>src/store.js</code></li>
+  <li>Jack Henry core connector; Salesforce behind the CRM push stub</li>
+  <li>Replace <code>test/won-deals.json</code> seed rows with real wins, tighten tolerance</li>
+</ol>
+</div>
+
+</main>
+</body>
+</html>
