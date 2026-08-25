@@ -57,6 +57,40 @@ function validateTransactions(rows) {
 
 const PRIORITIES = new Set(['this_week', 'this_month', 'later']);
 
+// The request-access form is the one public payload the API takes, so it is the
+// strictest: every field bounded, enums closed, email shape checked.
+const USER_TYPES = ['bank_employee', 'service_partner', 'other'];
+const REQUESTABLE_ROLES = ['analyst', 'approver', 'executive', 'admin'];
+const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,24}$/;
+
+function validateAccessRequest(body) {
+  if (!body || typeof body !== 'object') return bad('body required');
+  const e =
+    str(body.organization, 'organization') ||
+    str(body.fullName, 'fullName', { max: 120 }) ||
+    str(body.workEmail, 'workEmail', { max: 254 }) ||
+    str(body.title, 'title', { required: false, max: 120 }) ||
+    str(body.reason, 'reason', { required: false, max: 2000 });
+  if (e) return bad(e);
+  const workEmail = body.workEmail.trim().toLowerCase();
+  if (!EMAIL.test(workEmail)) return bad('workEmail must be a valid email address');
+  const userType = body.userType || 'bank_employee';
+  if (!USER_TYPES.includes(userType)) return bad(`userType must be one of ${USER_TYPES.join(', ')}`);
+  if (!REQUESTABLE_ROLES.includes(body.requestedRole)) return bad(`requestedRole must be one of ${REQUESTABLE_ROLES.join(', ')}`);
+  return {
+    ok: true,
+    value: {
+      organization: body.organization.trim(),
+      userType,
+      fullName: body.fullName.trim(),
+      workEmail,
+      title: (body.title || '').trim(),
+      requestedRole: body.requestedRole,
+      reason: (body.reason || '').trim(),
+    },
+  };
+}
+
 function validateReferral(body) {
   if (!body || typeof body !== 'object') return bad('body required');
   const e = str(body.opportunityId, 'opportunityId', { max: 128 }) || str(body.partner, 'partner', { required: false }) || str(body.note, 'note', { required: false, max: 2000 });
@@ -136,4 +170,4 @@ function intQuery(v, name, { min = 0, max = 1e9 } = {}) {
   return { ok: true, value: n };
 }
 
-module.exports = { validateTransactions, validateReferral, validateAssumptions, validateCustomers, intQuery, MAX_UPLOAD_ROWS, MODEL_PARAMS };
+module.exports = { validateTransactions, validateReferral, validateAssumptions, validateCustomers, validateAccessRequest, intQuery, MAX_UPLOAD_ROWS, MODEL_PARAMS };

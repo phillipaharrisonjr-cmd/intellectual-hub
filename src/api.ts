@@ -1,14 +1,13 @@
-// Role comes from these headers until SSO lands (see backend README).
-// The demo identity matches the seeded book's officer.
-const ROLE = 'analyst';
-const USER = 'Dana Whitfield';
+import { getIdentity } from './identity';
 
+// Role comes from these headers until SSO lands (see backend README, Roles).
 export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const identity = getIdentity();
   const res = await fetch(path, {
     ...init,
     headers: {
-      'x-denali-role': ROLE,
-      'x-denali-user': USER,
+      'x-denali-role': identity.role,
+      'x-denali-user': identity.name,
       ...(init.body ? { 'Content-Type': 'application/json' } : {}),
       ...init.headers,
     },

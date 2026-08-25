@@ -82,13 +82,16 @@ function requireRole(...allowed) {
 
 function createApp({ store = createStore() } = {}) {
   const app = express();
-  app.use(cors());
+  // Lock CORS to the portal origin in production (CORS_ORIGIN env); open in dev.
+  app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
   app.use(express.json({ limit: '5mb' }));
   app.use(express.text({ type: ['text/plain', 'application/octet-stream'], limit: '25mb' }));
   app.use(express.static(path.join(__dirname, '..', 'public')));
   app.use((req, res, next) => {
     res.set('X-Content-Type-Options', 'nosniff');
     res.set('X-Frame-Options', 'DENY');
+    res.set('Referrer-Policy', 'no-referrer');
+    res.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
     res.set('Cache-Control', 'no-store');
     next();
   });
@@ -108,6 +111,25 @@ function createApp({ store = createStore() } = {}) {
       opportunities: S.opportunities.size,
       assumptionsVersion: assumptions().version,
     });
+  });
+
+  // ── Access requests ───────────────────────────────────────────────────────
+  // The one public route: no role header, so it gets the public-form hardening —
+  // per-IP rate limit, strict validation, a generic reply that never echoes
+  // input, and an audit event without the applicant's PII. Admins review the
+  // queue; granting access stays a human step (SSO/JWT is the real fix).
+  const accessLimiter = rateLimit({ windowMs: 60000, max: Number(process.env.ACCESS_REQUEST_RATE_LIMIT) || 5 });
+  app.post('/api/access-requests', accessLimiter, (req, res) => {
+    const v = V.validateAccessRequest(req.body);
+    if (!v.ok) return res.status(400).json({ error: v.error });
+    const id = store.nextId('acc');
+    S.accessRequests.set(id, { id, ...v.value, status: 'received', at: new Date().toISOString() });
+    store.audit('public', 'access.requested', { org: v.value.organization, requestedRole: v.value.requestedRole, userType: v.value.userType });
+    res.status(201).json({ id, status: 'received' });
+  });
+
+  app.get('/api/admin/access-requests', requireRole('admin'), (req, res) => {
+    res.json({ requests: [...S.accessRequests.values()] });
   });
 
   // ── Core / CIF ────────────────────────────────────────────────────────────

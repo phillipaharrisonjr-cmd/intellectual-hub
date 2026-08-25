@@ -10,6 +10,7 @@ function createStore() {
     customers: new Map(),
     opportunities: new Map(),
     referrals: new Map(),
+    accessRequests: new Map(),
     audit: [],
     seq: 0,
     seen: new Set(),
@@ -33,6 +34,7 @@ function createStore() {
       state.customers.clear();
       state.opportunities.clear();
       state.referrals.clear();
+      state.accessRequests.clear();
       state.audit = [];
       state.seq = 0;
       state.seen = new Set();

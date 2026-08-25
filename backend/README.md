@@ -26,6 +26,8 @@ Sent as the `x-denali-role` header (`analyst`, `approver`, `executive`, `admin`)
 | Method | Path | Role | What it does |
 |---|---|---|---|
 | GET | `/api/health` | any | status, `aiConfigured`, counts |
+| POST | `/api/access-requests` | public (no header) | request portal access; strictly validated, rate limited per IP, generic reply, audited without PII |
+| GET | `/api/admin/access-requests` | admin | review the access-request queue |
 | POST | `/api/core/customers` | admin, analyst | load CIF: `[{ id, name, officer, industry, heldAtBank: [] }]` |
 | POST | `/api/uploads` | analyst, admin | NACHA file as `text/plain`, or JSON `{ transactions: [{ customerId, customerName, descriptor, amount, direction, date }] }` |
 | POST | `/api/scan` | analyst, admin | classify + project everything uploaded; returns summary and top unmapped descriptors |
@@ -74,6 +76,8 @@ Edit `config/descriptor-rules.json`. Order matters, first match wins. Add a case
 | `PORT` | no | `3000` | server port |
 | `CHAT_RATE_LIMIT` | no | `30` | assistant calls per user per minute |
 | `PERSIST_ASSUMPTIONS` | no | `true` | write assumptions PUT back to `config/` |
+| `CORS_ORIGIN` | no | `*` | lock CORS to the portal origin in production |
+| `ACCESS_REQUEST_RATE_LIMIT` | no | `5` | access-request submissions per IP per minute |
 | `ASSUMPTIONS_FILE` | no | `config/revenue-assumptions.json` | where to persist |
 
 ## Layout

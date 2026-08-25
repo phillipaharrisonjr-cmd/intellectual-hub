@@ -33,7 +33,17 @@ const NAV = [
   },
 ];
 
+import { getIdentity, ROLE_LABELS } from '../identity';
+
 export default function Sidebar({ active }: { active: string }) {
+  const identity = getIdentity();
+  const initials = identity.name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
   return (
     <aside
       className="flex w-[240px] shrink-0 flex-col text-[color:var(--sidebar-ink)]"
@@ -73,15 +83,19 @@ export default function Sidebar({ active }: { active: string }) {
           </div>
         ))}
       </nav>
-      <div className="flex items-center gap-2 border-t border-[color:var(--sidebar-line)] px-3.5 py-3">
+      <a
+        className="flex items-center gap-2 border-t border-[color:var(--sidebar-line)] px-3.5 py-3 text-[color:var(--sidebar-ink)] no-underline"
+        href="/request-access"
+        title="Switch user or request access"
+      >
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[color:var(--amber-500)] text-[10px] font-bold">
-          DW
+          {initials || 'DW'}
         </div>
         <div className="leading-tight">
-          <div className="text-xs font-semibold">Dana Whitfield</div>
-          <div className="text-[10px] text-[color:var(--sidebar-text)]">Banker</div>
+          <div className="text-xs font-semibold">{identity.name}</div>
+          <div className="text-[10px] text-[color:var(--sidebar-text)]">{ROLE_LABELS[identity.role]}</div>
         </div>
-      </div>
+      </a>
     </aside>
   );
 }
