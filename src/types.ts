@@ -32,6 +32,15 @@ export interface Flow {
 
 export type Confidence = 'High' | 'Medium' | 'Low';
 
+export interface Benchmark {
+  status: 'within' | 'above' | 'below' | 'unknown';
+  basis: 'customer_revenue' | 'peer_band' | null;
+  industryLabel: string | null;
+  annualizedFlow: number;
+  band: { min: number; max: number } | null;
+  version: string;
+}
+
 export interface Opportunity {
   id: string;
   customerId: string;
@@ -46,6 +55,7 @@ export interface Opportunity {
   customerInCore: boolean;
   flow: Flow;
   projection: Projection;
+  benchmark?: Benchmark;
   explanation: string;
   evidence: EvidenceRow[];
   status: string;

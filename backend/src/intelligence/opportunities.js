@@ -2,6 +2,7 @@
 
 const { classify } = require('./descriptors');
 const { project, assumptions } = require('./projection');
+const { checkFlow } = require('./benchmarks');
 
 // customers: Map<customerId, { id, name, officer, industry, heldAtBank: [] }>
 // transactions: parsed ACH rows with { customerId, customerName, descriptor, amount, direction, date }
@@ -66,7 +67,11 @@ function buildOpportunities(transactions, customers = new Map(), { previous = ne
 
     const projection = project(g.model, { total, count: g.rows.length, days, direction: g.direction });
     const consistency = Math.min(g.rows.length / 6, 1); // 6+ occurrences in the window = fully consistent
-    const score = Math.round(g.ruleConfidence * (0.6 + 0.4 * consistency) * 100);
+    const rawScore = Math.round(g.ruleConfidence * (0.6 + 0.4 * consistency) * 100);
+    // Above-band flow usually means a misclassified descriptor or a double count,
+    // so the score is dampened; below-band is normal (partial wallet elsewhere).
+    const benchmark = checkFlow({ customer, model: g.model, total, days });
+    const score = benchmark.status === 'above' ? Math.round(rawScore * 0.85) : rawScore;
 
     const evidence = [...g.rows]
       .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
@@ -89,7 +94,8 @@ function buildOpportunities(transactions, customers = new Map(), { previous = ne
       customerInCore: Boolean(known),
       flow: { total: Math.round(total * 100) / 100, count: g.rows.length, days, direction: g.direction, from: win.start, to: win.end },
       projection,
-      explanation: explain(g, customer, total, days, projection),
+      benchmark,
+      explanation: explain(g, customer, total, days, projection, benchmark),
       evidence,
       status: prior ? prior.status : 'open',
       referralId: prior ? prior.referralId || null : null,
@@ -99,12 +105,23 @@ function buildOpportunities(transactions, customers = new Map(), { previous = ne
   return out.sort((a, b) => b.projection.annualRevenue - a.projection.annualRevenue);
 }
 
-function explain(g, customer, total, days, projection) {
+function explain(g, customer, total, days, projection, benchmark) {
   const held = (customer.heldAtBank || []).length;
-  return `${customer.name || g.customerName} shows ${g.rows.length} ${g.direction}s matching "${g.vendor}" over ${days} days, ` +
+  let text = `${customer.name || g.customerName} shows ${g.rows.length} ${g.direction}s matching "${g.vendor}" over ${days} days, ` +
     `$${fmt(total)} in total, classified as ${g.product} by rule ${g.ruleId}. ` +
     `The bank holds ${held} product${held === 1 ? '' : 's'} with this customer but not ${g.product}. ` +
     `Projected at $${fmt(projection.annualRevenue)} per year using the ${projection.modelLabel.toLowerCase()} model.`;
+  if (benchmark) {
+    const who = benchmark.basis === 'customer_revenue' ? 'this customer’s revenue' : `peers (${(benchmark.industryLabel || 'industry').toLowerCase()})`;
+    if (benchmark.status === 'within') {
+      text += ` Annualized flow of $${fmt(benchmark.annualizedFlow)} sits inside the plausible band for ${who} ($${fmt(benchmark.band.min)}–$${fmt(benchmark.band.max)}).`;
+    } else if (benchmark.status === 'above') {
+      text += ` Careful: annualized flow of $${fmt(benchmark.annualizedFlow)} is above the plausible band for ${who} ($${fmt(benchmark.band.min)}–$${fmt(benchmark.band.max)}) — verify the descriptor match before referring; the score was reduced.`;
+    } else if (benchmark.status === 'below') {
+      text += ` Annualized flow is below the typical band for ${who} — likely a partial wallet at the competitor.`;
+    }
+  }
+  return text;
 }
 
 function summarize(opps) {

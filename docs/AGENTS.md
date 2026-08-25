@@ -7,8 +7,8 @@ through approval to CRM. Revenue generator, not a lead router.
 ## Layout
 src/             React + TS + Vite + Tailwind frontend (Claude Code owns this).
 backend/         Node + Express. src/ach, src/intelligence, src/app.js (routes + role guard),
-                 src/store.js (in-memory, swap for Postgres), src/assistant.js (OpenAI, fallback),
-                 src/reports.js, src/validate.js.
+                 src/store.js (in-memory, swap for Postgres), src/assistant.js (Claude via
+                 Anthropic SDK, deterministic fallback), src/reports.js, src/validate.js.
 backend/config/  Descriptor rules and revenue assumptions. Data, not code.
 backend/test/    Vitest + Supertest. regressions.test.js is the bug ledger (see backend/BUGS.md).
 design/canvas/   The six portal screens as .dc.html artboards + canvas.json. Also published at

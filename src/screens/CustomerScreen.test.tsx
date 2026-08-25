@@ -41,6 +41,14 @@ const ford: CustomerResponse = {
         ],
         assumptionsVersion: '2.3',
       },
+      benchmark: {
+        status: 'within',
+        basis: 'customer_revenue',
+        industryLabel: 'New car dealers',
+        annualizedFlow: 17087677,
+        band: { min: 3150000, max: 19950000 },
+        version: '0.1-starter',
+      },
       explanation:
         '123 Ford of Anchorage shows 63 credits matching "Worldpay" over 90 days, $4,213,400 in total, classified as Merchant services by rule merchant-worldpay. The bank holds 6 products with this customer but not Merchant services. Projected at $58,900 per year using the merchant services (card present) model.',
       evidence: [
@@ -100,6 +108,30 @@ describe('CustomerScreen', () => {
     expect(await screen.findByText(ford.opportunities[0].explanation)).toBeInTheDocument();
     expect(screen.getAllByText('WORLDPAY MERCH DEP')).toHaveLength(3);
     expect(screen.getAllByText('$66,879')).toHaveLength(3);
+  });
+
+  it('shows the peer-band check from the benchmark', async () => {
+    vi.stubGlobal('fetch', mockFetch({ 'GET /api/customers/2231': () => ({ body: ford }) }));
+    render(<CustomerScreen customerId="2231" />);
+
+    expect(await screen.findByText(/inside the plausible band/)).toBeInTheDocument();
+    expect(screen.getByText(/\$3\.15M–\$19\.95M/)).toBeInTheDocument();
+  });
+
+  it('warns when the flow is above the plausible band', async () => {
+    const above = {
+      ...ford,
+      opportunities: [
+        {
+          ...ford.opportunities[0],
+          benchmark: { ...ford.opportunities[0].benchmark!, status: 'above' as const },
+        },
+      ],
+    };
+    vi.stubGlobal('fetch', mockFetch({ 'GET /api/customers/2231': () => ({ body: above }) }));
+    render(<CustomerScreen customerId="2231" />);
+
+    expect(await screen.findByText(/above the plausible band/)).toBeInTheDocument();
   });
 
   it('submits a referral and reflects the referred status', async () => {

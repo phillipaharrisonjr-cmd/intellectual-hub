@@ -14,18 +14,18 @@
     "prepare": "cd .. && husky backend/.husky 2>/dev/null || true"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "openai": "^4.0.0"
+    "express": "^4.18.2"
   },
   "devDependencies": {
-    "supertest": "^7.0.0",
-    "vitest": "^2.1.0",
     "@eslint/js": "^9.0.0",
     "eslint": "^9.0.0",
     "globals": "^15.0.0",
     "husky": "^9.0.0",
-    "lint-staged": "^15.0.0"
+    "lint-staged": "^15.0.0",
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.0"
   },
   "engines": {
     "node": ">=18"

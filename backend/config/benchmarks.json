@@ -1,0 +1,54 @@
+{
+  "version": "0.1-starter",
+  "note": "Starter bands from public order-of-magnitude estimates. Replace revenuePerEstablishment with licensed RMA Annual Statement Studies / Census Economic Census figures per NAICS, and stateRevenueMultiplier with regional data. Bands catch order-of-magnitude errors; they never adjust projected revenue.",
+  "flowShareOfRevenue": {
+    "merchant_cp": { "low": 0.15, "high": 0.95 },
+    "merchant_cnp": { "low": 0.15, "high": 0.95 },
+    "purchase_card": { "low": 0.02, "high": 0.3 },
+    "commercial_card": { "low": 0.02, "high": 0.3 },
+    "payroll": { "low": 0.1, "high": 0.45 },
+    "lockbox": { "low": 0.2, "high": 1.2 },
+    "ap_automation": { "low": 0.2, "high": 1.0 },
+    "equipment_finance": { "low": 0.02, "high": 0.25 },
+    "term_loan": { "low": 0.02, "high": 0.25 },
+    "generic": { "low": 0.02, "high": 1.2 }
+  },
+  "stateRevenueMultiplier": { "default": 1 },
+  "industries": {
+    "441110": {
+      "label": "New car dealers",
+      "sic": ["5511"],
+      "revenuePerEstablishment": { "p25": 6500000, "p50": 16000000, "p75": 45000000 }
+    },
+    "236220": {
+      "label": "Commercial building construction",
+      "sic": ["1542"],
+      "revenuePerEstablishment": { "p25": 2500000, "p50": 8000000, "p75": 30000000 }
+    },
+    "621210": {
+      "label": "Dental offices",
+      "sic": ["8021"],
+      "revenuePerEstablishment": { "p25": 700000, "p50": 1400000, "p75": 2800000 }
+    },
+    "484121": {
+      "label": "General freight trucking, long-distance",
+      "sic": ["4213"],
+      "revenuePerEstablishment": { "p25": 800000, "p50": 3000000, "p75": 12000000 }
+    },
+    "721110": {
+      "label": "Hotels and motels",
+      "sic": ["7011"],
+      "revenuePerEstablishment": { "p25": 1200000, "p50": 3500000, "p75": 12000000 }
+    },
+    "311710": {
+      "label": "Seafood product preparation",
+      "sic": ["2092"],
+      "revenuePerEstablishment": { "p25": 2000000, "p50": 9000000, "p75": 40000000 }
+    },
+    "722511": {
+      "label": "Full-service restaurants",
+      "sic": ["5812"],
+      "revenuePerEstablishment": { "p25": 500000, "p50": 1100000, "p75": 2500000 }
+    }
+  }
+}

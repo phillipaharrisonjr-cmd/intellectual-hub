@@ -277,6 +277,23 @@ export default function CustomerScreen({ customerId }: { customerId: string }) {
                 <div>
                   {primary.flow.count} matching {primary.flow.direction}s in the {primary.flow.days}-day window
                 </div>
+                {primary.benchmark && primary.benchmark.status !== 'unknown' && primary.benchmark.band && (
+                  <div className={primary.benchmark.status === 'above' ? 'font-semibold text-[color:var(--amber-text)]' : ''}>
+                    Annualized flow {money(primary.benchmark.annualizedFlow)} is {primary.benchmark.status === 'above' ? 'above' : primary.benchmark.status === 'below' ? 'below' : 'inside'} the
+                    plausible band of {money(primary.benchmark.band.min)}–{money(primary.benchmark.band.max)}
+                    {primary.benchmark.basis === 'customer_revenue'
+                      ? ' for this customer’s revenue'
+                      : primary.benchmark.industryLabel
+                        ? ` for ${primary.benchmark.industryLabel.toLowerCase()}`
+                        : ''}
+                    {primary.benchmark.status === 'above' ? ' — verify the descriptor match before referring' : ''}
+                  </div>
+                )}
+                {primary.benchmark && primary.benchmark.status === 'unknown' && (
+                  <div className="text-[color:var(--muted)]">
+                    No peer benchmark — add SIC/NAICS to the core file for this customer
+                  </div>
+                )}
               </div>
             </Card>
 

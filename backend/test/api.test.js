@@ -98,7 +98,7 @@ describe('Denali API', () => {
   });
 
   it('assistant answers from projection math when no AI key is set', async () => {
-    delete process.env.OPENAI_API_KEY;
+    delete process.env.ANTHROPIC_API_KEY;
     await seed(app);
     const { body: list } = await request(app).get('/api/opportunities').set(analyst);
     const r = await request(app).post('/api/chat').set(analyst).send({ message: 'Why is this a fit?', opportunityId: list.opportunities[0].id }).expect(200);

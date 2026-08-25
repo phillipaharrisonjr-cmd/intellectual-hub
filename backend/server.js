@@ -7,7 +7,7 @@ const app = createApp();
 
 app.listen(PORT, () => {
   console.log(`Denali backend listening on port ${PORT}`);
-  if (!process.env.OPENAI_API_KEY) {
-    console.log('OPENAI_API_KEY not set. Assistant answers from projection math only.');
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log('ANTHROPIC_API_KEY not set. Assistant answers from projection math only.');
   }
 });

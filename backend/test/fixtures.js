@@ -66,9 +66,9 @@ function jsonTransactions() {
 }
 
 const customers = [
-  { id: '2231', name: '123 Ford of Anchorage', officer: 'Dana Whitfield', industry: 'Auto dealer', heldAtBank: ['Operating DDA', 'Floorplan line', 'CRE mortgage', 'ACH origination', 'Business credit card', 'Positive pay'] },
-  { id: 'KODIAK', name: 'Kodiak Commercial Builders', officer: 'Dana Whitfield', industry: 'Construction', heldAtBank: ['Operating DDA', 'Line of credit'] },
-  { id: 'NLD', name: 'Northern Lights Dental', officer: 'Jen Park', industry: 'Healthcare', heldAtBank: ['Operating DDA'] },
+  { id: '2231', name: '123 Ford of Anchorage', officer: 'Dana Whitfield', industry: 'Auto dealer', sic: '5511', naics: '441110', city: 'Anchorage', state: 'AK', annualRevenue: 21000000, heldAtBank: ['Operating DDA', 'Floorplan line', 'CRE mortgage', 'ACH origination', 'Business credit card', 'Positive pay'] },
+  { id: 'KODIAK', name: 'Kodiak Commercial Builders', officer: 'Dana Whitfield', industry: 'Construction', sic: '1542', naics: '236220', city: 'Anchorage', state: 'AK', annualRevenue: 28000000, heldAtBank: ['Operating DDA', 'Line of credit'] },
+  { id: 'NLD', name: 'Northern Lights Dental', officer: 'Jen Park', industry: 'Healthcare', sic: '8021', naics: '621210', city: 'Palmer', state: 'AK', annualRevenue: 5600000, heldAtBank: ['Operating DDA'] },
 ];
 
 module.exports = { fordWorldpayNacha, jsonTransactions, customers, batchHeader, entryDetail };

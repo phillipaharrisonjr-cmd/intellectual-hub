@@ -7,6 +7,7 @@ const path = require('path');
 const { createStore } = require('./store');
 const { parseNacha } = require('./ach/parseNacha');
 const { unmapped, reloadRules } = require('./intelligence/descriptors');
+const { reloadBenchmarks } = require('./intelligence/benchmarks');
 const { buildOpportunities, summarize } = require('./intelligence/opportunities');
 const { assumptions, setAssumptions } = require('./intelligence/projection');
 const assistant = require('./assistant');
@@ -102,7 +103,7 @@ function createApp({ store = createStore() } = {}) {
       status: 'ok',
       service: 'denali-backend',
       version: VERSION,
-      aiConfigured: Boolean(process.env.OPENAI_API_KEY),
+      aiConfigured: Boolean(process.env.ANTHROPIC_API_KEY),
       uploads: S.uploads.size,
       opportunities: S.opportunities.size,
       assumptionsVersion: assumptions().version,
@@ -352,6 +353,12 @@ function createApp({ store = createStore() } = {}) {
     const rules = reloadRules();
     store.audit(req.actor, 'descriptors.reloaded', { rules: rules.length });
     res.json({ rules: rules.length });
+  });
+
+  app.post('/api/admin/benchmarks/reload', requireRole('admin'), (req, res) => {
+    const b = reloadBenchmarks();
+    store.audit(req.actor, 'benchmarks.reloaded', { version: b.version, industries: Object.keys(b.industries).length });
+    res.json({ version: b.version, industries: Object.keys(b.industries).length });
   });
 
   // ── Audit ─────────────────────────────────────────────────────────────────

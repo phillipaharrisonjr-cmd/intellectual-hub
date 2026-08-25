@@ -1,16 +1,19 @@
 'use strict';
 
-// Denali assistant. Merged from the original Intellectual Hub chat backend:
-// same lazy OpenAI client, same request shape ({message} or {messages}), same 503
-// when the key is missing. What changed: the system prompt is Denali's, and the
-// assistant can be handed an opportunity so it answers about real numbers.
+// The Denali assistant: a Claude agent that lives inside the system. Same request
+// shape as the original Intellectual Hub chat backend ({message} or {messages}),
+// same deterministic fallback when no key is set — the brain is Claude via the
+// official Anthropic SDK. The assistant can be handed an opportunity so it
+// answers about real numbers.
 
-const OpenAI = require('openai');
+const { Anthropic } = require('@anthropic-ai/sdk');
+
+const MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-5';
 
 let client = null;
-function getOpenAI() {
-  if (!process.env.OPENAI_API_KEY) return null;
-  if (!client) client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+function getClaude() {
+  if (!process.env.ANTHROPIC_API_KEY) return null;
+  if (!client) client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   return client;
 }
 
@@ -48,6 +51,7 @@ function contextBlock(opportunity) {
         score: o.score,
         flow: o.flow,
         projection: o.projection,
+        benchmark: o.benchmark,
         explanation: o.explanation,
         evidence: o.evidence.slice(0, 5),
       },
@@ -61,10 +65,10 @@ function contextBlock(opportunity) {
 // the projection steps are already sentences, so hand those back.
 function fallbackReply(opportunity, question) {
   if (!opportunity) {
-    return 'The assistant is not configured with an AI key. Ask about a specific opportunity and I will return its explanation and projection.';
+    return 'The assistant is not configured with an AI key. Ask about a specific opportunity and I will return its explanation and projection. Set ANTHROPIC_API_KEY for conversational replies.';
   }
   const steps = opportunity.projection.steps.map((s) => `${s.label}: $${s.value.toLocaleString('en-US')} (${s.note})`).join('; ');
-  return `${opportunity.explanation} Math: ${steps}.` + (question ? ` (Answered without AI; set OPENAI_API_KEY for a conversational reply.)` : '');
+  return `${opportunity.explanation} Math: ${steps}.` + (question ? ` (Answered without AI; set ANTHROPIC_API_KEY for a conversational reply.)` : '');
 }
 
 async function chat({ body, opportunity }) {
@@ -80,16 +84,30 @@ async function chat({ body, opportunity }) {
     err.status = 400;
     throw err;
   }
-  const ai = getOpenAI();
+  const ai = getClaude();
   if (!ai) {
     return { reply: fallbackReply(opportunity, messages[messages.length - 1].content), aiConfigured: false };
   }
   const system = [SYSTEM_PROMPT, contextBlock(opportunity)].filter(Boolean).join('\n\n');
-  const completion = await ai.chat.completions.create({
-    model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-    messages: [{ role: 'system', content: system }, ...messages],
+  // Server-side refusal fallback: on a policy decline the API re-runs the request
+  // on a fallback model inside the same call, so the banker still gets an answer.
+  const response = await ai.beta.messages.create({
+    model: MODEL,
+    max_tokens: 4096,
+    betas: ['server-side-fallback-2026-07-01'],
+    fallbacks: 'default',
+    system,
+    messages,
   });
-  return { reply: completion.choices[0].message.content, aiConfigured: true };
+  if (response.stop_reason === 'refusal') {
+    return { reply: fallbackReply(opportunity, messages[messages.length - 1].content), aiConfigured: true };
+  }
+  const reply = response.content
+    .filter((b) => b.type === 'text')
+    .map((b) => b.text)
+    .join('\n')
+    .trim();
+  return { reply: reply || fallbackReply(opportunity, null), aiConfigured: true };
 }
 
-module.exports = { chat, getOpenAI, SYSTEM_PROMPT };
+module.exports = { chat, getClaude, SYSTEM_PROMPT };
